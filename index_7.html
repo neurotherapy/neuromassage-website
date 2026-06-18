@@ -174,7 +174,7 @@ footer p{font-size:0.9rem;color:#444444}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 /* old vars removed - using main site vars */
 html{scroll-behavior:smooth}
-/* portal body styles handled by portal-wrap */
+
 .top-nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.95);position:sticky;top:0;z-index:100}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.08em;color:var(--accent)}
 .nav-tabs{display:flex;gap:0.25rem}
@@ -309,6 +309,32 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 </style>
 </head>
 <body>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  "name": "Neuro Massage Therapy",
+  "description": "Specialists in the St. John Method of Neuromuscular Therapy in Saint Petersburg, FL. Treating neck pain, TMJ dysfunction, headaches, migraines, sciatica, lower back pain, plantar fasciitis and more.",
+  "url": "https://neuromassage.us",
+  "telephone": "+17277095025",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4603 4th Street North",
+    "addressLocality": "Saint Petersburg",
+    "addressRegion": "FL",
+    "postalCode": "33703",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 27.7882,
+    "longitude": -82.6497
+  },
+  "openingHours": "Mo-Sa 09:00-18:00",
+  "priceRange": "$$",
+  "servesCuisine": ["Neuromuscular Therapy", "St. John Method", "Cupping Therapy", "Dolphin Neurostim"]
+}
+</script>
 
 <!-- MAIN WEBSITE -->
 <div id="page-main" class="site-page active">
@@ -390,6 +416,7 @@ tr:hover td{background:rgba(184,149,90,0.04)}
         <h2 class="section-title">A New Standard in Therapeutic Bodywork</h2>
         <p>At Neuro Massage Therapy, we are building a clinic where specialized therapists work together under one roof, united by a commitment to precision and lasting results. Our approach goes beyond relaxation — we focus on restoring function, relieving chronic pain, and supporting the long-term health of every client we serve.</p>
         <p>Through precise, targeted bodywork, we help restore <strong>natural function</strong>, improve <strong>range of motion</strong>, and support <strong>long-term mobility and longevity</strong>. Every session is purposeful, structured, and tailored to the individual.</p>
+        <p>Based on the <strong>St. John Method of Neuromuscular Therapy</strong>, we treat a wide range of musculoskeletal conditions — from chronic neck pain, TMJ dysfunction, headaches and migraines, to shoulder pain, lower back pain, hip pain, sciatica, plantar fasciitis and referred pain throughout the body. If you are experiencing pain or discomfort anywhere in your body, chances are we can help.</p>
         <p>We treat the body as a unified whole — because true healing begins when we address the root cause, not just where it hurts.</p>
       </div>
     </div>
@@ -898,6 +925,7 @@ function submitJoin(){
     <div class="inner-tabs">
       <button class="inner-tab active" onclick="showDashTab('clients',this)">All Clients</button>
       <button class="inner-tab" onclick="showDashTab('recent',this)">Recent Intake Forms</button>
+      <button class="inner-tab" onclick="showDashTab('quickadd',this)">Quick Add Client</button>
     </div>
 
     <div id="dash-tab-clients">
@@ -946,6 +974,7 @@ function submitJoin(){
       <button class="inner-tab active" onclick="showModalTab('info',this)">Profile</button>
       <button class="inner-tab" onclick="showModalTab('medical',this)">Medical</button>
       <button class="inner-tab" onclick="showModalTab('notes',this)">Sessions & Progress</button>
+      <button class="inner-tab" onclick="showModalTab('alignment',this)">Body Alignment</button>
     </div>
     <div id="modal-tab-info">
       <div class="detail-grid" id="modal-personal"></div>
@@ -1289,9 +1318,16 @@ function showModalTab(t,btn){
     const c=allClients.find(x=>x.id===activeClientId);
     if(c){renderNotes(c);renderHomework(c);renderPlan(c);}
     showSessionTab('notes');
-    setTimeout(()=>{initDiagram();
+    setTimeout(()=>{
       const c2=allClients.find(x=>x.id===activeClientId);
       if(c2){renderProgress(c2);renderSavedDiagrams(c2);renderUploads(c2);}
+    },100);
+  }
+  if(t==='alignment'){
+    setTimeout(()=>{
+      initDiagram();
+      const c=allClients.find(x=>x.id===activeClientId);
+      if(c) renderSavedDiagrams(c);
     },100);
   }
 }
@@ -1332,12 +1368,7 @@ function exportData(){
 }
 
 // ===== DASH TABS =====
-function showDashTab(t,btn){
-  document.getElementById('dash-tab-clients').style.display=t==='clients'?'block':'none';
-  document.getElementById('dash-tab-recent').style.display=t==='recent'?'block':'none';
-  document.querySelectorAll('#dashboard-main .inner-tab').forEach((b,i)=>b.classList.toggle('active',['clients','recent'][i]===t));
-  if(t==='recent')renderRecentForms();
-}
+
 </script>
 </div>
 
