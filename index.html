@@ -907,20 +907,20 @@ function submitJoin(){
   </div>
 
   <!-- DASHBOARD MAIN -->
-  <div id="dashboard-main" style="display:none">
+  <div id="pdashboard-main" style="display:none">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
       <div>
-        <p class="page-title">Client Dashboard</p>
-        <p class="page-sub">Neuro Massage Therapy — Saint Petersburg, FL</p>
+        <p class="ptitle">Client Dashboard</p>
+        <p class="psub">Neuro Massage Therapy — Saint Petersburg, FL</p>
       </div>
       <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-        <button class="btn btn-outline btn-sm" onclick="showAddClient()">+ Add Client</button>
-        <button class="btn btn-outline btn-sm" onclick="exportData()">↓ Export CSV</button>
-        <button class="btn btn-outline btn-sm" onclick="doLogout()">Log Out</button>
+        <button class="pbtn pbtn-outline pbtn-sm" onclick="showAddClient()">+ Add Client</button>
+        <button class="pbtn pbtn-outline pbtn-sm" onclick="exportData()">↓ Export CSV</button>
+        <button class="pbtn pbtn-outline pbtn-sm" onclick="doLogout()">Log Out</button>
       </div>
     </div>
 
-    <div class="stats-row" id="stats-row"></div>
+    <div class="pstats" id="pstats-row"></div>
 
     <div class="inner-tabs">
       <button class="inner-tab active" onclick="showDashTab('clients',this)">All Clients</button>
@@ -928,21 +928,21 @@ function submitJoin(){
       <button class="inner-tab" onclick="showDashTab('quickadd',this)">Quick Add Client</button>
     </div>
 
-    <div id="dash-tab-clients">
-      <div class="toolbar">
-        <div class="search-wrap">
-          <span class="search-icon">⌕</span>
-          <input type="text" id="client-search" placeholder="Search by name, email, phone..." oninput="renderClients()"/>
+    <div id="pdash-tab-clients">
+      <div class="ptoolbar">
+        <div class="psearch-wrap">
+          <span class="psearch-icon">⌕</span>
+          <input type="text" id="pclient-search" placeholder="Search by name, email, phone..." oninput="renderClients()"/>
         </div>
-        <select id="status-filter" onchange="renderClients()" style="width:auto;min-width:140px">
+        <select id="pstatus-filter" onchange="renderClients()" style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.25);border-radius:2px;color:#1a2e2e;font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem 0.85rem;min-width:140px;outline:none">
           <option value="">All Statuses</option>
           <option value="New">New</option>
           <option value="Active">Active</option>
           <option value="Inactive">Inactive</option>
         </select>
       </div>
-      <div class="card" style="padding:0">
-        <div class="table-wrap">
+      <div class="pcard" style="padding:0">
+        <div class="ptable-wrap">
           <table>
             <thead>
               <tr>
@@ -950,14 +950,59 @@ function submitJoin(){
                 <th>Sessions</th><th>Status</th><th>Last Visit</th><th></th>
               </tr>
             </thead>
-            <tbody id="clients-tbody"><tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">Loading clients...</td></tr></tbody>
+            <tbody id="pclients-tbody"><tr><td colspan="7" style="text-align:center;color:#4a6666;padding:2rem">Loading clients...</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <div id="dash-tab-recent" style="display:none">
-      <div id="recent-forms-list"></div>
+    <div id="pdash-tab-recent" style="display:none">
+      <div id="precent-forms-list"></div>
+    </div>
+
+    <!-- QUICK ADD CLIENT TAB -->
+    <div id="pdash-tab-quickadd" style="display:none">
+      <div class="pcard">
+        <div class="fsec-title">Quick Add Existing Client</div>
+        <p style="color:#333;font-size:0.95rem;margin-bottom:1.5rem">Add an existing client directly to the system so you can track their sessions and progress.</p>
+        <div class="fgrid">
+          <div class="fgroup"><label>First Name *</label><input type="text" id="qa-first" placeholder="Jane"/></div>
+          <div class="fgroup"><label>Last Name *</label><input type="text" id="qa-last" placeholder="Doe"/></div>
+          <div class="fgroup"><label>Phone</label><input type="tel" id="qa-phone" placeholder="(727) 000-0000"/></div>
+          <div class="fgroup"><label>Email</label><input type="email" id="qa-email" placeholder="jane@email.com"/></div>
+          <div class="fgroup"><label>Date of Birth</label><input type="date" id="qa-dob"/></div>
+          <div class="fgroup"><label>Total Sessions to Date</label><input type="number" id="qa-sessions" placeholder="0" min="0"/></div>
+          <div class="fgroup"><label>Primary Complaint / Issues</label><input type="text" id="qa-complaint" placeholder="e.g. Lower back pain, neck tension..."/></div>
+          <div class="fgroup"><label>Pain Level (1-10)</label><input type="number" id="qa-pain" min="1" max="10" placeholder="e.g. 6"/></div>
+          <div class="fgroup"><label>Pain Areas</label><input type="text" id="qa-areas" placeholder="e.g. Lower back, shoulders, neck..."/></div>
+          <div class="fgroup"><label>Status</label>
+            <select id="qa-status" style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.25);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem;width:100%;outline:none">
+              <option value="Active">Active</option>
+              <option value="New">New</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="fgroup"><label>Pressure Preference</label>
+            <select id="qa-pressure" style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.25);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem;width:100%;outline:none">
+              <option value="">Select...</option>
+              <option>Light</option>
+              <option>Medium</option>
+              <option>Firm</option>
+              <option>Deep / Intense</option>
+            </select>
+          </div>
+          <div class="fgroup"><label>Medications</label><input type="text" id="qa-meds" placeholder="e.g. Ibuprofen, None..."/></div>
+          <div class="fgroup"><label>Allergies</label><input type="text" id="qa-allergies" placeholder="e.g. Latex, None..."/></div>
+          <div class="fgroup full"><label>Health Conditions</label><textarea id="qa-conditions" placeholder="Any health conditions we should be aware of..." style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.25);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem;width:100%;outline:none;resize:vertical;min-height:70px"></textarea></div>
+          <div class="fgroup full"><label>Session Notes</label><textarea id="qa-notes" placeholder="Any notes about this client from previous sessions..." style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.25);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem;width:100%;outline:none;resize:vertical;min-height:70px"></textarea></div>
+        </div>
+        <div id="qa-error" style="display:none;background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);border-radius:2px;padding:0.85rem;color:#c0392b;font-size:0.88rem;margin-top:1rem">Please fill in first and last name.</div>
+        <div style="margin-top:1.5rem;display:flex;gap:1rem">
+          <button class="pbtn pbtn-primary" onclick="saveQuickClient()">Add Client to System</button>
+          <button class="pbtn pbtn-outline" onclick="clearQuickAdd()">Clear Form</button>
+        </div>
+        <div id="qa-success" style="display:none;background:rgba(74,159,159,0.1);border:1px solid rgba(74,159,159,0.3);border-radius:2px;padding:1rem;color:#2a7a7a;font-size:0.9rem;margin-top:1rem;text-align:center">✓ Client added successfully! You can find them in the All Clients tab.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1146,7 +1191,7 @@ function doLogin(){
   if(p===PASS){
     document.getElementById('login-error').style.display='none';
     document.getElementById('login-screen').style.display='none';
-    document.getElementById('dashboard-main').style.display='block';
+    document.getElementById('pdashboard-main').style.display='block';
     renderDashboard();
   }else{
     document.getElementById('login-error').style.display='block';
@@ -1154,7 +1199,7 @@ function doLogin(){
 }
 function doLogout(){
   document.getElementById('login-password').value='';
-  document.getElementById('dashboard-main').style.display='none';
+  document.getElementById('pdashboard-main').style.display='none';
   document.getElementById('login-screen').style.display='block';
 }
 
@@ -1172,59 +1217,120 @@ function renderStats(){
   const active=allClients.filter(c=>c.status==='Active').length;
   const newC=allClients.filter(c=>c.status==='New').length;
   const totalSessions=allClients.reduce((s,c)=>s+(parseInt(c.sessions)||0),0);
-  document.getElementById('stats-row').innerHTML=`
-    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Clients</div></div>
-    <div class="stat-card"><div class="stat-num">${active}</div><div class="stat-label">Active Clients</div></div>
-    <div class="stat-card"><div class="stat-num">${newC}</div><div class="stat-label">New</div></div>
-    <div class="stat-card"><div class="stat-num">${totalSessions}</div><div class="stat-label">Total Sessions</div></div>
+  const statsEl=document.getElementById('pstats-row');
+  if(!statsEl)return;
+  statsEl.innerHTML=`
+    <div class="pstat"><div class="pstat-num">${total}</div><div class="pstat-label">Total Clients</div></div>
+    <div class="pstat"><div class="pstat-num">${active}</div><div class="pstat-label">Active Clients</div></div>
+    <div class="pstat"><div class="pstat-num">${newC}</div><div class="pstat-label">New</div></div>
+    <div class="pstat"><div class="pstat-num">${totalSessions}</div><div class="pstat-label">Total Sessions</div></div>
   `;
 }
 
 function renderClients(){
-  const q=(document.getElementById('client-search')||{}).value||'';
-  const sf=(document.getElementById('status-filter')||{}).value||'';
+  const q=(document.getElementById('pclient-search')||{}).value||'';
+  const sf=(document.getElementById('pstatus-filter')||{}).value||'';
   let clients=allClients.filter(c=>{
     const name=((c.first_name||'')+' '+(c.last_name||'')).toLowerCase();
     const match=!q||name.includes(q.toLowerCase())||(c.email||'').toLowerCase().includes(q.toLowerCase())||(c.phone||'').includes(q);
     const statusMatch=!sf||c.status===sf;
     return match&&statusMatch;
   });
-  const tbody=document.getElementById('clients-tbody');
+  const tbody=document.getElementById('pclients-tbody');
   if(!tbody)return;
-  if(!clients.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem">No clients found.</td></tr>';return;}
+  if(!clients.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#4a6666;padding:2rem">No clients found.</td></tr>';return;}
   tbody.innerHTML=clients.map(c=>`
     <tr>
-      <td><strong>${c.first_name||''} ${c.last_name||''}</strong><br/><span style="font-size:0.78rem;color:var(--text-muted)">${c.email||''}</span></td>
+      <td><strong>${c.first_name||''} ${c.last_name||''}</strong><br/><span style="font-size:0.78rem;color:#4a6666">${c.email||''}</span></td>
       <td>${c.phone||'—'}</td>
       <td style="font-size:0.82rem;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.pain_areas||'—'}</td>
-      <td style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--accent)">${c.sessions||0}</td>
-      <td><span class="badge badge-${(c.status||'new').toLowerCase()}">${c.status||'New'}</span></td>
-      <td style="font-size:0.82rem;color:var(--text-muted)">${c.last_visit?new Date(c.last_visit).toLocaleDateString():'—'}</td>
-      <td><button class="btn btn-outline btn-sm" onclick="openClient(${c.id})">View →</button></td>
+      <td style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#2a7a7a;font-weight:300">${c.sessions||0}</td>
+      <td><span class="pbadge pbadge-${(c.status||'new').toLowerCase()}">${c.status||'New'}</span></td>
+      <td style="font-size:0.82rem;color:#4a6666">${c.last_visit?new Date(c.last_visit).toLocaleDateString():'—'}</td>
+      <td><button class="pbtn pbtn-outline pbtn-sm" onclick="openClient(${c.id})">View →</button></td>
     </tr>
   `).join('');
 }
 
 async function renderRecentForms(){
-  const el=document.getElementById('recent-forms-list');
+  const el=document.getElementById('precent-forms-list');
+  if(!el)return;
   const recent=allClients.slice(0,20);
-  if(!recent.length){el.innerHTML='<p style="color:var(--text-muted)">No intake forms submitted yet.</p>';return;}
+  if(!recent.length){el.innerHTML='<p style="color:#4a6666">No intake forms submitted yet.</p>';return;}
   el.innerHTML=recent.map(f=>`
-    <div class="card" style="margin-bottom:1rem">
+    <div class="pcard" style="margin-bottom:1rem">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem">
         <div><strong style="font-size:1.05rem">${f.first_name||''} ${f.last_name||''}</strong>
-        <span class="badge badge-new" style="margin-left:0.5rem">${f.status||'New'}</span></div>
-        <span style="font-size:0.78rem;color:var(--text-muted)">${f.created_at?new Date(f.created_at).toLocaleString():''}</span>
+        <span class="pbadge pbadge-new" style="margin-left:0.5rem">${f.status||'New'}</span></div>
+        <span style="font-size:0.78rem;color:#4a6666">${f.created_at?new Date(f.created_at).toLocaleString():''}</span>
       </div>
-      <div class="detail-grid" style="margin-top:1rem">
-        <div class="detail-item"><span class="detail-label">Phone</span><span class="detail-value">${f.phone||'—'}</span></div>
-        <div class="detail-item"><span class="detail-label">Email</span><span class="detail-value">${f.email||'—'}</span></div>
-        <div class="detail-item"><span class="detail-label">Pain Areas</span><span class="detail-value">${f.pain_areas||'—'}</span></div>
-        <div class="detail-item"><span class="detail-label">Session Goal</span><span class="detail-value">${f.session_goal||'—'}</span></div>
+      <div class="pdetail-grid" style="margin-top:1rem">
+        <div class="pdetail-item"><span class="pdetail-label">Phone</span><span class="pdetail-value">${f.phone||'—'}</span></div>
+        <div class="pdetail-item"><span class="pdetail-label">Email</span><span class="pdetail-value">${f.email||'—'}</span></div>
+        <div class="pdetail-item"><span class="pdetail-label">Pain Areas</span><span class="pdetail-value">${f.pain_areas||'—'}</span></div>
+        <div class="pdetail-item"><span class="pdetail-label">Session Goal</span><span class="pdetail-value">${f.session_goal||'—'}</span></div>
       </div>
-      ${f.main_complaint?`<p style="margin-top:0.75rem;font-size:0.88rem;color:rgba(245,242,238,0.7)">"${f.main_complaint}"</p>`:''}
+      ${f.main_complaint?`<p style="margin-top:0.75rem;font-size:0.88rem;color:#333">"${f.main_complaint}"</p>`:''}
     </div>
   `).join('');
+}
+
+// ===== DASHBOARD TABS =====
+function showDashTab(t, btn){
+  ['clients','recent','quickadd'].forEach(tab=>{
+    const el = document.getElementById('pdash-tab-'+tab);
+    if(el) el.style.display = tab===t ? 'block' : 'none';
+  });
+  document.querySelectorAll('#pdashboard-main .inner-tab').forEach((b,i)=>b.classList.toggle('active',['clients','recent','quickadd'][i]===t));
+  if(t==='recent') renderRecentForms();
+}
+
+// ===== QUICK ADD CLIENT =====
+async function saveQuickClient(){
+  const first = document.getElementById('qa-first').value.trim();
+  const last = document.getElementById('qa-last').value.trim();
+  if(!first||!last){document.getElementById('qa-error').style.display='block';return;}
+  document.getElementById('qa-error').style.display='none';
+  const notes = document.getElementById('qa-notes').value.trim();
+  const record = {
+    first_name: first, last_name: last,
+    phone: document.getElementById('qa-phone').value,
+    email: document.getElementById('qa-email').value,
+    dob: document.getElementById('qa-dob').value,
+    sessions: parseInt(document.getElementById('qa-sessions').value)||0,
+    pain_areas: document.getElementById('qa-areas').value,
+    pain_level: document.getElementById('qa-pain').value,
+    main_complaint: document.getElementById('qa-complaint').value,
+    status: document.getElementById('qa-status').value,
+    pressure_pref: document.getElementById('qa-pressure').value,
+    medications: document.getElementById('qa-meds').value,
+    allergies: document.getElementById('qa-allergies').value,
+    health_conditions: document.getElementById('qa-conditions').value,
+    notes: notes ? [{date: new Date().toISOString(), text: notes}] : [],
+    progress: {}, diagrams: [], uploads: []
+  };
+  const {data, error} = await sb.from('clients').insert([record]).select();
+  if(!error && data){
+    allClients.unshift(data[0]);
+    renderStats(); renderClients();
+    document.getElementById('qa-success').style.display='block';
+    clearQuickAdd();
+    setTimeout(()=>document.getElementById('qa-success').style.display='none', 3000);
+  } else if(error) {
+    alert('Error saving client. Please try again.');
+    console.error(error);
+  }
+}
+
+function clearQuickAdd(){
+  ['qa-first','qa-last','qa-phone','qa-email','qa-dob','qa-sessions','qa-complaint','qa-pain','qa-areas','qa-meds','qa-allergies','qa-conditions','qa-notes'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value='';
+  });
+  const status = document.getElementById('qa-status');
+  if(status) status.selectedIndex=0;
+  const pressure = document.getElementById('qa-pressure');
+  if(pressure) pressure.selectedIndex=0;
 }
 
 // ===== CLIENT MODAL =====
