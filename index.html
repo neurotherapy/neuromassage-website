@@ -128,6 +128,14 @@ section{padding:6rem 5%}
 .form-group input,.form-group select,.form-group textarea{background:var(--off-white);border:1px solid var(--border);border-radius:2px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem 0.85rem;width:100%;transition:border-color 0.2s;outline:none}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
 .form-group textarea{resize:vertical;min-height:80px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fgroup{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.fgroup.full{grid-column:1/-1}
+.fgroup label{font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:#333333;font-weight:600}
+.fgroup input,.fgroup select,.fgroup textarea{background:#e8f5f5;border:1px solid rgba(74,159,159,0.3);border-radius:2px;color:#111111;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:500;padding:0.65rem 0.85rem;width:100%;transition:border-color 0.2s;outline:none}
+.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{border-color:#2a7a7a}
+.fgroup input::placeholder,.fgroup textarea::placeholder{color:#666666}
+.fgroup textarea{resize:vertical;min-height:70px}
 .form-success{display:none;background:rgba(74,159,159,0.1);border:1px solid var(--border);border-radius:2px;padding:1rem;color:var(--accent);font-size:0.9rem;margin-top:1rem;text-align:center}
 
 /* BOOKING */
@@ -281,26 +289,29 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 
 
 .logo-wrap{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1}
-.logo-neuro{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:2.8rem;font-weight:100;color:#1a1a1a;display:flex;align-items:center;gap:0;letter-spacing:-1px}
-.logo-lines{display:inline-flex;flex-direction:column;margin:0 2px;justify-content:center;height:2.4rem;gap:5px;padding-top:8px}
+.logo-wrap{padding-top:0.2rem}
+.logo-neuro{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:2.8rem;font-weight:200;color:#1a1a1a;display:flex;align-items:center;gap:0;letter-spacing:-1px}
+.logo-lines{display:inline-flex;flex-direction:column;margin:0 2px;justify-content:center;height:2.4rem;gap:6px;padding-top:11px}
 .logo-lines span{display:block;height:3px;background:#1a1a1a;border-radius:1px}
 .logo-lines span:nth-child(1){width:22px}
 .logo-lines span:nth-child(2){width:17px}
 .logo-lines span:nth-child(3){width:22px}
-.logo-sub{font-family:'Great Vibes',cursive;font-size:1.1rem;color:#1a1a1a;margin-top:2px;margin-left:2px}
+.logo-sub{font-family:'Great Vibes',cursive;font-size:1.15rem;color:#1a1a1a;margin-top:3px;margin-left:1.6rem}
 .logo-line-fade{height:2px;background:linear-gradient(to right,transparent,#1a1a1a 15%,#1a1a1a 85%,transparent);margin-top:2px;width:100%}
 
 /* Hero logo bigger */
-.hero-logo .logo-neuro{font-size:4.5rem}
-.hero-logo .logo-lines{height:3.8rem;gap:10px;padding-top:16px}
+.hero-logo{padding-top:0.9rem}
+.hero-logo .logo-neuro{font-size:4.5rem;font-weight:200}
+.hero-logo .logo-lines{height:3.8rem;gap:11px;padding-top:22px}
 .hero-logo .logo-lines span:nth-child(1){width:36px;height:5px}
 .hero-logo .logo-lines span:nth-child(2){width:28px;height:5px}
 .hero-logo .logo-lines span:nth-child(3){width:36px;height:5px}
-.hero-logo .logo-sub{font-family:'Great Vibes',cursive;font-size:1.8rem;margin-top:4px}
+.hero-logo .logo-sub{font-family:'Great Vibes',cursive;font-size:1.9rem;margin-top:6px;margin-left:2.6rem}
 .hero-logo .logo-line-fade{height:3px}
 
 /* Footer logo smaller */
-.footer-logo .logo-neuro{font-size:2rem}
+.footer-logo{padding-top:0.15rem}
+.footer-logo .logo-neuro{font-size:2rem;font-weight:200}
 .footer-logo .logo-lines{height:1.7rem;gap:4px}
 .footer-logo .logo-lines span:nth-child(1){width:20px;height:2px}
 .footer-logo .logo-lines span:nth-child(2){width:16px;height:2px}
@@ -1052,6 +1063,40 @@ function submitJoin(){
         <button class="btn btn-primary" onclick="addNote()">Add Note</button>
       </div>
     </div>
+    <div id="modal-tab-alignment" style="display:none">
+      <p style="color:#333;font-size:0.9rem;margin-bottom:1rem">Mark misalignments, pain areas and trigger points on the body chart.</p>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem">
+        <span style="font-size:0.78rem;color:#4a6666;text-transform:uppercase;letter-spacing:0.08em">Color:</span>
+        <button onclick="setDrawColor('#c0392b')" style="width:28px;height:28px;border-radius:50%;background:#c0392b;border:3px solid #999;cursor:pointer" title="Red - Pain"></button>
+        <button onclick="setDrawColor('#2a7a7a')" style="width:28px;height:28px;border-radius:50%;background:#2a7a7a;border:3px solid transparent;cursor:pointer" title="Teal - Treatment"></button>
+        <button onclick="setDrawColor('#e67e22')" style="width:28px;height:28px;border-radius:50%;background:#e67e22;border:3px solid transparent;cursor:pointer" title="Orange - Misalignment"></button>
+        <button onclick="setDrawColor('#8e44ad')" style="width:28px;height:28px;border-radius:50%;background:#8e44ad;border:3px solid transparent;cursor:pointer" title="Purple - Trigger Point"></button>
+        <button onclick="setDrawColor('#1a1a1a')" style="width:28px;height:28px;border-radius:50%;background:#1a1a1a;border:3px solid transparent;cursor:pointer" title="Black - Notes"></button>
+        <button onclick="setErase(true)" style="width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid #ccc;cursor:pointer;font-size:0.7rem" title="Eraser">✕</button>
+        <button class="btn btn-outline btn-sm" onclick="clearDiagram()">Clear</button>
+        <button class="btn btn-primary btn-sm" onclick="saveDiagram()">Save Chart</button>
+      </div>
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap">
+        <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(192,57,43,0.15);color:#c0392b;border-radius:2px">● Pain</span>
+        <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(74,159,159,0.15);color:#2a7a7a;border-radius:2px">● Treatment</span>
+        <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(230,126,34,0.15);color:#e67e22;border-radius:2px">● Misalignment</span>
+        <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(142,68,173,0.15);color:#8e44ad;border-radius:2px">● Trigger Point</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div>
+          <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#4a6666;margin-bottom:0.5rem;text-align:center">Front View</div>
+          <canvas id="body-front" width="260" height="480" style="border:1px solid rgba(74,159,159,0.3);border-radius:4px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+        </div>
+        <div>
+          <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#4a6666;margin-bottom:0.5rem;text-align:center">Back View</div>
+          <canvas id="body-back" width="260" height="480" style="border:1px solid rgba(74,159,159,0.3);border-radius:4px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem">
+        <textarea id="diagram-notes" placeholder="Alignment notes — describe misalignments, directions, compensations observed..." style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.3);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem;width:100%;outline:none;resize:vertical;min-height:70px"></textarea>
+      </div>
+      <div id="saved-diagrams-list" style="margin-top:1rem"></div>
+    </div>
     <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;justify-content:space-between">
       <button class="btn btn-danger btn-sm" onclick="deleteClient()">Delete Client</button>
       <button class="btn btn-outline btn-sm" onclick="closeModal()">Close</button>
@@ -1418,8 +1463,8 @@ async function deleteClient(){
 function closeModal(){document.getElementById('client-modal').classList.remove('open');activeClientId=null;}
 
 function showModalTab(t,btn){
-  ['info','medical','notes'].forEach(tab=>{document.getElementById('modal-tab-'+tab).style.display=tab===t?'block':'none';});
-  document.querySelectorAll('#client-modal .inner-tab').forEach((b,i)=>b.classList.toggle('active',['info','medical','notes'][i]===t));
+  ['info','medical','notes','alignment'].forEach(tab=>{const el=document.getElementById('modal-tab-'+tab);if(el)el.style.display=tab===t?'block':'none';});
+  document.querySelectorAll('#client-modal .inner-tab').forEach((b,i)=>b.classList.toggle('active',['info','medical','notes','alignment'][i]===t));
   if(t==='notes'){
     const c=allClients.find(x=>x.id===activeClientId);
     if(c){renderNotes(c);renderHomework(c);renderPlan(c);}
@@ -1492,6 +1537,99 @@ function switchToMain(){
   document.getElementById('page-portal').classList.remove('active');
   document.getElementById('page-main').classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ===== BODY ALIGNMENT DIAGRAM =====
+let drawColor = '#c0392b';
+let isErasing = false;
+let isDrawing = false;
+let activeCanvas = null;
+
+function setDrawColor(color) {
+  drawColor = color;
+  isErasing = false;
+}
+function setErase(val) { isErasing = val; }
+
+function drawBodyOutline(canvas) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle = '#b2e0e0';
+  ctx.lineWidth = 1.5;
+  ctx.fillStyle = '#f7fbfb';
+  ctx.beginPath(); ctx.arc(w/2, 50, 32, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w/2-11,80); ctx.lineTo(w/2-14,105); ctx.lineTo(w/2+14,105); ctx.lineTo(w/2+11,80); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w/2-50,105); ctx.lineTo(w/2-55,250); ctx.lineTo(w/2+55,250); ctx.lineTo(w/2+50,105); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w/2-50,110); ctx.lineTo(w/2-72,220); ctx.lineTo(w/2-58,220); ctx.lineTo(w/2-38,115); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w/2+50,110); ctx.lineTo(w/2+72,220); ctx.lineTo(w/2+58,220); ctx.lineTo(w/2+38,115); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w/2-40,250); ctx.lineTo(w/2-45,400); ctx.lineTo(w/2-22,400); ctx.lineTo(w/2-9,250); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w/2+40,250); ctx.lineTo(w/2+45,400); ctx.lineTo(w/2+22,400); ctx.lineTo(w/2+9,250); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(w/2-33,410,16,9,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(w/2+33,410,16,9,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+}
+
+function clearDiagram() {
+  ['body-front','body-back'].forEach(id => {
+    const canvas = document.getElementById(id);
+    if(canvas) drawBodyOutline(canvas);
+  });
+}
+
+function initDiagram() {
+  ['body-front','body-back'].forEach(id => {
+    const canvas = document.getElementById(id);
+    if(!canvas || canvas.dataset.initialized) { if(canvas) drawBodyOutline(canvas); return; }
+    canvas.dataset.initialized = 'true';
+    drawBodyOutline(canvas);
+    const getPos = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const src = e.touches ? e.touches[0] : e;
+      return {x:(src.clientX-rect.left)*scaleX, y:(src.clientY-rect.top)*scaleY};
+    };
+    const startDraw = (e) => { e.preventDefault(); isDrawing=true; activeCanvas=canvas; const pos=getPos(e); const ctx=canvas.getContext('2d'); ctx.beginPath(); ctx.moveTo(pos.x,pos.y); };
+    const draw = (e) => { if(!isDrawing||activeCanvas!==canvas) return; e.preventDefault(); const pos=getPos(e); const ctx=canvas.getContext('2d'); ctx.lineWidth=isErasing?20:3; ctx.lineCap='round'; ctx.strokeStyle=isErasing?'#ffffff':drawColor; ctx.lineTo(pos.x,pos.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pos.x,pos.y); };
+    const stopDraw = () => { isDrawing=false; activeCanvas=null; };
+    canvas.addEventListener('mousedown',startDraw); canvas.addEventListener('mousemove',draw); canvas.addEventListener('mouseup',stopDraw); canvas.addEventListener('mouseleave',stopDraw);
+    canvas.addEventListener('touchstart',startDraw,{passive:false}); canvas.addEventListener('touchmove',draw,{passive:false}); canvas.addEventListener('touchend',stopDraw);
+  });
+}
+
+async function saveDiagram() {
+  const c = allClients.find(x => x.id === activeClientId);
+  if(!c) return;
+  const frontCanvas = document.getElementById('body-front');
+  const backCanvas = document.getElementById('body-back');
+  const notes = document.getElementById('diagram-notes').value.trim();
+  const diagrams = c.diagrams || [];
+  diagrams.push({ date: new Date().toISOString(), front: frontCanvas.toDataURL('image/png'), back: backCanvas.toDataURL('image/png'), notes });
+  const {error} = await sb.from('clients').update({diagrams}).eq('id', activeClientId);
+  if(!error) {
+    c.diagrams = diagrams;
+    document.getElementById('diagram-notes').value = '';
+    renderSavedDiagrams(c);
+    clearDiagram();
+    alert('Body alignment chart saved!');
+  } else { alert('Error saving chart. Make sure the diagrams column exists in Supabase.'); console.error(error); }
+}
+
+function renderSavedDiagrams(c) {
+  const el = document.getElementById('saved-diagrams-list');
+  if(!el) return;
+  const diagrams = c.diagrams || [];
+  if(!diagrams.length) { el.innerHTML = '<p style="color:#4a6666;font-size:0.88rem;margin-top:0.5rem">No saved charts yet.</p>'; return; }
+  el.innerHTML = '<div style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2a7a7a;margin-bottom:0.75rem;font-weight:500">Saved Charts</div>' +
+    [...diagrams].reverse().map(d => `
+    <div style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.2);border-radius:4px;padding:1rem;margin-bottom:0.75rem">
+      <div style="font-size:0.72rem;color:#2a7a7a;margin-bottom:0.75rem">${new Date(d.date).toLocaleString()}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+        <div><div style="font-size:0.7rem;color:#4a6666;margin-bottom:0.25rem">Front</div><img src="${d.front}" style="width:100%;border-radius:2px;border:1px solid rgba(74,159,159,0.2)"/></div>
+        <div><div style="font-size:0.7rem;color:#4a6666;margin-bottom:0.25rem">Back</div><img src="${d.back}" style="width:100%;border-radius:2px;border:1px solid rgba(74,159,159,0.2)"/></div>
+      </div>
+      ${d.notes ? `<p style="font-size:0.85rem;color:#333;margin-top:0.5rem">${d.notes}</p>` : ''}
+    </div>`).join('');
 }
 </script>
 
