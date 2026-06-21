@@ -1090,10 +1090,14 @@ function submitJoin(){
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
         <div>
           <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#4a6666;margin-bottom:0.5rem;text-align:center">Front View</div>
+          <input type="file" id="upload-front" accept="image/*" style="display:none" onchange="uploadChartImage('front')"/>
+          <button class="btn btn-outline btn-sm" style="width:100%;margin-bottom:0.5rem" onclick="document.getElementById('upload-front').click()">📄 Upload Front Chart</button>
           <canvas id="body-front" width="260" height="480" style="border:1px solid rgba(74,159,159,0.3);border-radius:4px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
         </div>
         <div>
           <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#4a6666;margin-bottom:0.5rem;text-align:center">Back View</div>
+          <input type="file" id="upload-back" accept="image/*" style="display:none" onchange="uploadChartImage('back')"/>
+          <button class="btn btn-outline btn-sm" style="width:100%;margin-bottom:0.5rem" onclick="document.getElementById('upload-back').click()">📄 Upload Back Chart</button>
           <canvas id="body-back" width="260" height="480" style="border:1px solid rgba(74,159,159,0.3);border-radius:4px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
         </div>
       </div>
@@ -1557,6 +1561,7 @@ function setDrawColor(color) {
 function setErase(val) { isErasing = val; }
 
 function drawBodyOutline(canvas) {
+  if(canvas.dataset.customImage === 'true') return;
   const ctx = canvas.getContext('2d');
   const w = canvas.width, h = canvas.height;
   ctx.clearRect(0,0,w,h);
@@ -1574,10 +1579,36 @@ function drawBodyOutline(canvas) {
   ctx.beginPath(); ctx.ellipse(w/2+33,410,16,9,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
 }
 
+function uploadChartImage(view){
+  const fileInput = document.getElementById('upload-'+view);
+  const file = fileInput.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const canvas = document.getElementById('body-'+view);
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = function(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      const scale = Math.min(canvas.width/img.width, canvas.height/img.height);
+      const w = img.width*scale, h = img.height*scale;
+      const x = (canvas.width-w)/2, y = (canvas.height-h)/2;
+      ctx.drawImage(img, x, y, w, h);
+      canvas.dataset.customImage = 'true';
+      canvas.dataset.imageDataUrl = e.target.result;
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+  fileInput.value = '';
+}
+
 function clearDiagram() {
   ['body-front','body-back'].forEach(id => {
     const canvas = document.getElementById(id);
-    if(canvas) drawBodyOutline(canvas);
+    if(canvas) { canvas.dataset.customImage = 'false'; drawBodyOutline(canvas); }
   });
 }
 
