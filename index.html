@@ -295,9 +295,10 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 
 .logo-wrap{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1}
 .logo-wrap{padding-top:0.2rem}
-.logo-neuro{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:2.8rem;font-weight:200;color:#1a1a1a;display:flex;align-items:center;gap:0;letter-spacing:-1px}
-.logo-lines{display:inline-flex;flex-direction:column;margin:0 2px;justify-content:center;height:2.4rem;gap:6px;padding-top:11px}
-.logo-lines span{display:block;height:3px;background:#1a1a1a;border-radius:1px}
+.logo-neuro{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:2.8rem;font-weight:100;color:#1a1a1a;display:flex;align-items:center;gap:0;letter-spacing:-1px}
+.logo-lines{display:inline-flex;flex-direction:column;margin:0 2px;height:2.4rem;padding-top:11px}
+.logo-lines span{display:block;height:3px;background:#1a1a1a;border-radius:1px;margin-bottom:6px}
+.logo-lines span:last-child{margin-bottom:0}
 .logo-lines span:nth-child(1){width:22px}
 .logo-lines span:nth-child(2){width:17px}
 .logo-lines span:nth-child(3){width:22px}
@@ -306,18 +307,22 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 
 /* Hero logo bigger */
 .hero-logo{padding-top:0.9rem}
-.hero-logo .logo-neuro{font-size:4.5rem;font-weight:200}
-.hero-logo .logo-lines{height:3.8rem;gap:11px;padding-top:22px}
+.hero-logo .logo-neuro{font-size:4.5rem;font-weight:100}
+.hero-logo .logo-lines{height:3.8rem;padding-top:17px}
+.hero-logo .logo-lines span{margin-bottom:10px}
+.hero-logo .logo-lines span:last-child{margin-bottom:0}
 .hero-logo .logo-lines span:nth-child(1){width:36px;height:5px}
 .hero-logo .logo-lines span:nth-child(2){width:28px;height:5px}
 .hero-logo .logo-lines span:nth-child(3){width:36px;height:5px}
-.hero-logo .logo-sub{font-family:'Great Vibes',cursive;font-size:1.9rem;margin-top:6px;margin-left:2.6rem}
+.hero-logo .logo-sub{font-family:'Great Vibes',cursive;font-size:1.9rem;margin-top:-0.5rem;margin-left:2.6rem}
 .hero-logo .logo-line-fade{height:3px}
 
 /* Footer logo smaller */
 .footer-logo{padding-top:0.15rem}
-.footer-logo .logo-neuro{font-size:2rem;font-weight:200}
-.footer-logo .logo-lines{height:1.7rem;gap:4px}
+.footer-logo .logo-neuro{font-size:2rem;font-weight:100}
+.footer-logo .logo-lines{height:1.7rem;padding-top:8px}
+.footer-logo .logo-lines span{margin-bottom:4px}
+.footer-logo .logo-lines span:last-child{margin-bottom:0}
 .footer-logo .logo-lines span:nth-child(1){width:20px;height:2px}
 .footer-logo .logo-lines span:nth-child(2){width:16px;height:2px}
 .footer-logo .logo-lines span:nth-child(3){width:20px;height:2px}
@@ -538,7 +543,7 @@ tr:hover td{background:rgba(184,149,90,0.04)}
         </div>
         <div class="form-group">
           <label>Phone</label>
-          <input type="tel" id="j-phone" placeholder="(727) 000-0000"/>
+          <input type="tel" id="j-phone" placeholder="(727) 000-0000" oninput="formatPhoneInput(this)" maxlength="14"/>
         </div>
         <div class="form-group">
           <label>Years of Experience</label>
@@ -630,6 +635,14 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 </footer>
 
 <script>
+function formatPhoneInput(input){
+  let digits = input.value.replace(/\D/g,'').slice(0,10);
+  let formatted = digits;
+  if(digits.length > 6) formatted = `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6,10)}`;
+  else if(digits.length > 3) formatted = `(${digits.slice(0,3)}) ${digits.slice(3,6)}`;
+  else if(digits.length > 0) formatted = `(${digits}`;
+  input.value = formatted;
+}
 function submitJoin(){
   const name=document.getElementById('j-name').value.trim();
   const email=document.getElementById('j-email').value.trim();
@@ -684,11 +697,11 @@ function submitJoin(){
               <option>Non-binary</option><option>Prefer not to say</option>
             </select>
           </div>
-          <div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" required placeholder="(727) 000-0000"/></div>
+          <div class="form-group"><label>Phone Number *</label><input type="tel" name="phone" required placeholder="(727) 000-0000" oninput="formatPhoneInput(this)" maxlength="14"/></div>
           <div class="form-group"><label>Email Address *</label><input type="email" name="email" required placeholder="jane@email.com"/></div>
           <div class="form-group full"><label>Address</label><input type="text" name="address" placeholder="Street, City, State, ZIP"/></div>
           <div class="form-group"><label>Emergency Contact Name</label><input type="text" name="emergencyName" placeholder="Full name"/></div>
-          <div class="form-group"><label>Emergency Contact Phone</label><input type="tel" name="emergencyPhone" placeholder="(727) 000-0000"/></div>
+          <div class="form-group"><label>Emergency Contact Phone</label><input type="tel" name="emergencyPhone" placeholder="(727) 000-0000" oninput="formatPhoneInput(this)" maxlength="14"/></div>
           <div class="form-group"><label>Occupation</label><input type="text" name="occupation" placeholder="e.g. Desk worker, Athlete..."/></div>
           <div class="form-group"><label>How did you hear about us?</label>
             <select name="referral">
@@ -984,7 +997,7 @@ function submitJoin(){
         <div class="fgrid">
           <div class="fgroup"><label>First Name *</label><input type="text" id="qa-first" placeholder="Jane"/></div>
           <div class="fgroup"><label>Last Name *</label><input type="text" id="qa-last" placeholder="Doe"/></div>
-          <div class="fgroup"><label>Phone</label><input type="tel" id="qa-phone" placeholder="(727) 000-0000"/></div>
+          <div class="fgroup"><label>Phone</label><input type="tel" id="qa-phone" placeholder="(727) 000-0000" oninput="formatPhoneInput(this)" maxlength="14"/></div>
           <div class="fgroup"><label>Email</label><input type="email" id="qa-email" placeholder="jane@email.com"/></div>
           <div class="fgroup"><label>Date of Birth</label><input type="date" id="qa-dob"/></div>
           <div class="fgroup"><label>Total Sessions to Date</label><input type="number" id="qa-sessions" placeholder="0" min="0"/></div>
@@ -1124,7 +1137,7 @@ function submitJoin(){
     <div class="form-grid">
       <div class="form-group"><label>First Name *</label><input type="text" id="add-first" placeholder="Jane"/></div>
       <div class="form-group"><label>Last Name *</label><input type="text" id="add-last" placeholder="Doe"/></div>
-      <div class="form-group"><label>Phone</label><input type="tel" id="add-phone" placeholder="(727) 000-0000"/></div>
+      <div class="form-group"><label>Phone</label><input type="tel" id="add-phone" placeholder="(727) 000-0000" oninput="formatPhoneInput(this)" maxlength="14"/></div>
       <div class="form-group"><label>Email</label><input type="email" id="add-email" placeholder="jane@email.com"/></div>
       <div class="form-group"><label>Date of Birth</label><input type="date" id="add-dob"/></div>
       <div class="form-group"><label>Total Sessions to Date</label><input type="number" id="add-sessions" placeholder="0" min="0"/></div>
