@@ -302,8 +302,8 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 .logo-lines span:nth-child(1){width:22px}
 .logo-lines span:nth-child(2){width:17px}
 .logo-lines span:nth-child(3){width:22px}
-.logo-sub{font-family:'Great Vibes',cursive;font-size:1.15rem;color:#1a1a1a;margin-top:3px;margin-left:1.6rem}
-.logo-line-fade{height:2px;background:linear-gradient(to right,transparent,#1a1a1a 15%,#1a1a1a 85%,transparent);margin-top:2px;width:100%}
+.logo-sub{font-family:'Great Vibes',cursive;font-size:1.15rem;color:#1a1a1a;margin-top:3px;margin-left:3.5rem;white-space:nowrap}
+.logo-line-fade{height:3px;background:linear-gradient(to right,transparent,#1a1a1a 15%,#1a1a1a 85%,transparent);margin-top:2px;width:100%}
 
 /* Hero logo bigger */
 .hero-logo{padding-top:0.9rem}
@@ -314,8 +314,8 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 .hero-logo .logo-lines span:nth-child(1){width:36px;height:5px}
 .hero-logo .logo-lines span:nth-child(2){width:28px;height:5px}
 .hero-logo .logo-lines span:nth-child(3){width:36px;height:5px}
-.hero-logo .logo-sub{font-family:'Great Vibes',cursive;font-size:1.9rem;margin-top:-0.5rem;margin-left:2.6rem}
-.hero-logo .logo-line-fade{height:3px}
+.hero-logo .logo-sub{font-family:'Great Vibes',cursive;font-size:1.9rem;margin-top:-0.5rem;margin-left:5.6rem;white-space:nowrap}
+.hero-logo .logo-line-fade{height:4px}
 
 /* Footer logo smaller */
 .footer-logo{padding-top:0.15rem}
@@ -1054,6 +1054,26 @@ function submitJoin(){
     </div>
     <div id="modal-tab-info">
       <div class="detail-grid" id="modal-personal"></div>
+      <div id="modal-profile-edit-form" style="display:none">
+        <div class="fgrid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div class="form-group"><label>First Name</label><input type="text" id="prof-edit-first"/></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="prof-edit-last"/></div>
+          <div class="form-group"><label>Phone</label><input type="tel" id="prof-edit-phone" oninput="formatPhoneInput(this)" maxlength="14"/></div>
+          <div class="form-group"><label>Email</label><input type="email" id="prof-edit-email"/></div>
+          <div class="form-group"><label>Date of Birth</label><input type="date" id="prof-edit-dob"/></div>
+          <div class="form-group"><label>Gender</label><input type="text" id="prof-edit-gender"/></div>
+          <div class="form-group"><label>Occupation</label><input type="text" id="prof-edit-occupation"/></div>
+          <div class="form-group"><label>Session Goal</label><input type="text" id="prof-edit-session-goal"/></div>
+          <div class="form-group"><label>Pressure Preference</label><input type="text" id="prof-edit-pressure"/></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Address</label><input type="text" id="prof-edit-address"/></div>
+          <div class="form-group" style="grid-column:1/-1"><label>Main Complaint</label><textarea id="prof-edit-complaint" style="width:100%;min-height:60px"></textarea></div>
+        </div>
+      </div>
+      <div style="margin-top:1rem;display:flex;gap:0.75rem">
+        <button class="btn btn-outline btn-sm" id="profile-edit-btn" onclick="toggleProfileEdit()">Edit Profile</button>
+        <button class="btn btn-primary btn-sm" id="profile-save-btn" style="display:none" onclick="saveProfileEdit()">Save Changes</button>
+        <button class="btn btn-outline btn-sm" id="profile-cancel-btn" style="display:none" onclick="cancelProfileEdit()">Cancel</button>
+      </div>
       <div style="margin-top:1rem;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end">
         <div class="form-group">
           <label>Status</label>
@@ -1075,6 +1095,18 @@ function submitJoin(){
     </div>
     <div id="modal-tab-medical" style="display:none">
       <div class="detail-grid" id="modal-medical"></div>
+      <div id="modal-medical-edit-form" style="display:none">
+        <div class="form-group full" style="margin-bottom:1rem"><label>Health Conditions</label><textarea id="med-edit-conditions" style="width:100%;min-height:70px"></textarea></div>
+        <div class="form-group full" style="margin-bottom:1rem"><label>Medications</label><textarea id="med-edit-medications" style="width:100%;min-height:70px"></textarea></div>
+        <div class="form-group full" style="margin-bottom:1rem"><label>Allergies</label><textarea id="med-edit-allergies" style="width:100%;min-height:70px"></textarea></div>
+        <div class="form-group full" style="margin-bottom:1rem"><label>Pain Areas</label><input type="text" id="med-edit-pain-areas" style="width:100%"/></div>
+        <div class="form-group full" style="margin-bottom:1rem"><label>Previous Massage Experience</label><input type="text" id="med-edit-prev-massage" style="width:100%"/></div>
+      </div>
+      <div style="margin-top:1rem;display:flex;gap:0.75rem">
+        <button class="btn btn-outline btn-sm" id="medical-edit-btn" onclick="toggleMedicalEdit()">Edit Medical Info</button>
+        <button class="btn btn-primary btn-sm" id="medical-save-btn" style="display:none" onclick="saveMedicalEdit()">Save Changes</button>
+        <button class="btn btn-outline btn-sm" id="medical-cancel-btn" style="display:none" onclick="cancelMedicalEdit()">Cancel</button>
+      </div>
     </div>
     <div id="modal-tab-notes" style="display:none">
       <div class="notes-list" id="modal-notes-list"></div>
@@ -1412,6 +1444,8 @@ function openClient(id){
   document.getElementById('modal-status').value=c.status||'New';
   document.getElementById('modal-sessions').textContent=c.sessions||0;
   document.getElementById('modal-personal').innerHTML=`
+    <div class="detail-item"><span class="detail-label">First Name</span><span class="detail-value">${c.first_name||'—'}</span></div>
+    <div class="detail-item"><span class="detail-label">Last Name</span><span class="detail-value">${c.last_name||'—'}</span></div>
     <div class="detail-item"><span class="detail-label">Phone</span><span class="detail-value">${c.phone||'—'}</span></div>
     <div class="detail-item"><span class="detail-label">Email</span><span class="detail-value">${c.email||'—'}</span></div>
     <div class="detail-item"><span class="detail-label">Date of Birth</span><span class="detail-value">${c.dob||'—'}</span></div>
@@ -1420,6 +1454,7 @@ function openClient(id){
     <div class="detail-item"><span class="detail-label">Referral</span><span class="detail-value">${c.referral||'—'}</span></div>
     <div class="detail-item"><span class="detail-label">Session Goal</span><span class="detail-value">${c.session_goal||'—'}</span></div>
     <div class="detail-item"><span class="detail-label">Pressure Preference</span><span class="detail-value">${c.pressure_pref||'—'}</span></div>
+    <div class="detail-item" style="grid-column:1/-1"><span class="detail-label">Address</span><span class="detail-value">${c.address||'—'}</span></div>
     <div class="detail-item" style="grid-column:1/-1"><span class="detail-label">Main Complaint</span><span class="detail-value">${c.main_complaint||'—'}</span></div>
     <div class="detail-item" style="grid-column:1/-1"><span class="detail-label">Pain Areas</span><span class="detail-value">${c.pain_areas||'—'}</span></div>
   `;
@@ -1430,9 +1465,116 @@ function openClient(id){
     <div class="detail-item"><span class="detail-label">Previous Massage</span><span class="detail-value">${c.prev_massage||'—'}</span></div>
     <div class="detail-item"><span class="detail-label">Signed By</span><span class="detail-value">${c.print_name||'—'}</span></div>
   `;
+  cancelMedicalEdit();
+  cancelProfileEdit();
   renderNotes(c);
   showModalTab('info',document.querySelector('#client-modal .inner-tab'));
   document.getElementById('client-modal').classList.add('open');
+}
+
+function toggleMedicalEdit(){
+  const c = allClients.find(x => x.id === activeClientId);
+  if(!c) return;
+  document.getElementById('med-edit-conditions').value = c.health_conditions || '';
+  document.getElementById('med-edit-medications').value = c.medications || '';
+  document.getElementById('med-edit-allergies').value = c.allergies || '';
+  document.getElementById('med-edit-pain-areas').value = c.pain_areas || '';
+  document.getElementById('med-edit-prev-massage').value = c.prev_massage || '';
+  document.getElementById('modal-medical').style.display = 'none';
+  document.getElementById('modal-medical-edit-form').style.display = 'block';
+  document.getElementById('medical-edit-btn').style.display = 'none';
+  document.getElementById('medical-save-btn').style.display = 'inline-flex';
+  document.getElementById('medical-cancel-btn').style.display = 'inline-flex';
+}
+
+function cancelMedicalEdit(){
+  document.getElementById('modal-medical').style.display = 'grid';
+  document.getElementById('modal-medical-edit-form').style.display = 'none';
+  document.getElementById('medical-edit-btn').style.display = 'inline-flex';
+  document.getElementById('medical-save-btn').style.display = 'none';
+  document.getElementById('medical-cancel-btn').style.display = 'none';
+}
+
+async function saveMedicalEdit(){
+  const c = allClients.find(x => x.id === activeClientId);
+  if(!c) return;
+  const updates = {
+    health_conditions: document.getElementById('med-edit-conditions').value.trim(),
+    medications: document.getElementById('med-edit-medications').value.trim(),
+    allergies: document.getElementById('med-edit-allergies').value.trim(),
+    pain_areas: document.getElementById('med-edit-pain-areas').value.trim(),
+    prev_massage: document.getElementById('med-edit-prev-massage').value.trim()
+  };
+  const {error} = await sb.from('clients').update(updates).eq('id', activeClientId);
+  if(!error){
+    Object.assign(c, updates);
+    openClient(activeClientId);
+    alert('Medical info updated!');
+  } else {
+    alert('Error saving changes. Please try again.');
+    console.error(error);
+  }
+}
+
+function toggleProfileEdit(){
+  const c = allClients.find(x => x.id === activeClientId);
+  if(!c) return;
+  document.getElementById('prof-edit-first').value = c.first_name || '';
+  document.getElementById('prof-edit-last').value = c.last_name || '';
+  document.getElementById('prof-edit-phone').value = c.phone || '';
+  document.getElementById('prof-edit-email').value = c.email || '';
+  document.getElementById('prof-edit-dob').value = c.dob || '';
+  document.getElementById('prof-edit-gender').value = c.gender || '';
+  document.getElementById('prof-edit-occupation').value = c.occupation || '';
+  document.getElementById('prof-edit-session-goal').value = c.session_goal || '';
+  document.getElementById('prof-edit-pressure').value = c.pressure_pref || '';
+  document.getElementById('prof-edit-address').value = c.address || '';
+  document.getElementById('prof-edit-complaint').value = c.main_complaint || '';
+  document.getElementById('modal-personal').style.display = 'none';
+  document.getElementById('modal-profile-edit-form').style.display = 'block';
+  document.getElementById('profile-edit-btn').style.display = 'none';
+  document.getElementById('profile-save-btn').style.display = 'inline-flex';
+  document.getElementById('profile-cancel-btn').style.display = 'inline-flex';
+}
+
+function cancelProfileEdit(){
+  document.getElementById('modal-personal').style.display = 'grid';
+  document.getElementById('modal-profile-edit-form').style.display = 'none';
+  document.getElementById('profile-edit-btn').style.display = 'inline-flex';
+  document.getElementById('profile-save-btn').style.display = 'none';
+  document.getElementById('profile-cancel-btn').style.display = 'none';
+}
+
+async function saveProfileEdit(){
+  const c = allClients.find(x => x.id === activeClientId);
+  if(!c) return;
+  const updates = {
+    first_name: document.getElementById('prof-edit-first').value.trim(),
+    last_name: document.getElementById('prof-edit-last').value.trim(),
+    phone: document.getElementById('prof-edit-phone').value.trim(),
+    email: document.getElementById('prof-edit-email').value.trim(),
+    dob: document.getElementById('prof-edit-dob').value,
+    gender: document.getElementById('prof-edit-gender').value.trim(),
+    occupation: document.getElementById('prof-edit-occupation').value.trim(),
+    session_goal: document.getElementById('prof-edit-session-goal').value.trim(),
+    pressure_pref: document.getElementById('prof-edit-pressure').value.trim(),
+    address: document.getElementById('prof-edit-address').value.trim(),
+    main_complaint: document.getElementById('prof-edit-complaint').value.trim()
+  };
+  if(!updates.first_name || !updates.last_name){
+    alert('First and last name cannot be empty.');
+    return;
+  }
+  const {error} = await sb.from('clients').update(updates).eq('id', activeClientId);
+  if(!error){
+    Object.assign(c, updates);
+    openClient(activeClientId);
+    renderClients();
+    alert('Profile updated!');
+  } else {
+    alert('Error saving changes. Please try again.');
+    console.error(error);
+  }
 }
 
 function renderNotes(c){
