@@ -177,6 +177,7 @@ footer p{font-size:0.9rem;color:#444444}
   .map-wrap{min-height:300px}
   nav{padding:0.85rem 4%}
   .nav-links{display:none}
+  .hamburger{display:flex}
   footer{flex-direction:column;text-align:center}
   .process-step{grid-template-columns:40px 1fr}
 }
@@ -327,6 +328,31 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 .footer-logo .logo-lines span:nth-child(2){width:16px;height:2px}
 .footer-logo .logo-lines span:nth-child(3){width:20px;height:2px}
 .footer-logo .logo-sub{font-family:'Great Vibes',cursive;font-size:0.85rem}
+
+/* BLOG */
+#blog{background:var(--off-white);padding:6rem 5%}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.blog-card{background:#fff;border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;cursor:pointer}
+.blog-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(74,159,159,0.12)}
+.blog-card-img{height:180px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:3rem}
+.blog-card-body{padding:1.5rem}
+.blog-card-tag{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem}
+.blog-card-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:#111;margin-bottom:0.5rem;line-height:1.3}
+.blog-card-excerpt{font-size:0.88rem;color:#444;line-height:1.7;margin-bottom:1rem}
+.blog-card-meta{font-size:0.75rem;color:#888}
+.blog-post-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;overflow-y:auto;padding:2rem 1rem}
+.blog-post-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.blog-post-modal{background:#fff;border-radius:4px;width:100%;max-width:760px;padding:2.5rem;position:relative}
+.blog-post-close{position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:1.5rem;cursor:pointer;color:#888}
+.blog-post-close:hover{color:#111}
+.blog-post-tag{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
+.blog-post-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:#111;margin-bottom:0.5rem;line-height:1.2}
+.blog-post-meta{font-size:0.78rem;color:#888;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.blog-post-content{font-size:1rem;color:#333;line-height:1.9}
+.blog-post-content p{margin-bottom:1.25rem}
+.blog-post-content h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:#111;margin:1.5rem 0 0.75rem}
+.blog-write-btn{margin-top:2rem;display:flex;justify-content:flex-end}
+@media(max-width:768px){.blog-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -382,9 +408,26 @@ tr:hover td{background:rgba(184,149,90,0.04)}
     <li><a href="#services">Services</a></li>
     <li><a href="#join">Join Our Team</a></li>
     <li><a href="#location">Location</a></li>
-    <li><a href="#" onclick="switchToPortal()" style="font-size:0.78rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none">Client Portal</a></li><li><a href="#booking" class="nav-cta">Book Now</a></li>
+    <li><a href="#blog">Blog</a></li><li><a href="#" onclick="switchToPortal()" style="font-size:0.78rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none">Client Portal</a></li><li><a href="#booking" class="nav-cta">Book Now</a></li>
   </ul>
+
+  <!-- HAMBURGER BUTTON -->
+  <button class="hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mob-close" onclick="closeMobileMenu()">×</button>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#services" onclick="closeMobileMenu()">Services</a>
+  <a href="#join" onclick="closeMobileMenu()">Join Our Team</a>
+  <a href="#location" onclick="closeMobileMenu()">Location</a>
+  <a href="#blog" onclick="closeMobileMenu()">Blog</a>
+  <a href="#" onclick="closeMobileMenu();switchToPortal()">Client Portal</a>
+  <a href="#booking" onclick="closeMobileMenu()" class="mob-cta">Book Now</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -565,6 +608,30 @@ tr:hover td{background:rgba(184,149,90,0.04)}
     </div>
   </div>
 </section>
+
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-inner">
+    <p class="section-label">Blog</p>
+    <h2 class="section-title">Stories & Tips</h2>
+    <p class="section-sub">Real client experiences and practical advice to help you understand your body better.</p>
+    <div class="blog-grid" id="blog-grid">
+      <!-- Posts loaded by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- BLOG POST MODAL -->
+<div class="blog-post-overlay" id="blog-post-overlay">
+  <div class="blog-post-modal">
+    <button class="blog-post-close" onclick="closeBlogPost()">×</button>
+    <div class="blog-post-tag" id="bp-tag"></div>
+    <h2 class="blog-post-title" id="bp-title"></h2>
+    <div class="blog-post-meta" id="bp-meta"></div>
+    <div class="blog-post-content" id="bp-content"></div>
+  </div>
+</div>
 
 <!-- BOOKING -->
 <section id="booking">
@@ -1824,6 +1891,103 @@ function renderSavedDiagrams(c) {
       ${d.notes ? `<p style="font-size:0.85rem;color:#333;margin-top:0.5rem">${d.notes}</p>` : ''}
     </div>`).join('');
 }
+
+// ===== BLOG =====
+const blogPosts = [
+  {
+    id: 1,
+    tag: 'Client Story',
+    emoji: '🌟',
+    title: 'From Chronic Neck Pain to Full Mobility: Maria&#39;s Story',
+    date: 'June 10, 2026',
+    excerpt: 'After years of living with constant neck tension and headaches, Maria discovered neuromuscular therapy — and everything changed.',
+    content: `
+      <p>Maria came to us after years of chronic neck pain that no treatment seemed to resolve. She had tried chiropractic care, traditional massage, and physical therapy — all with temporary relief at best.</p>
+      <h3>The First Assessment</h3>
+      <p>During her initial postural assessment, we identified significant forward head posture and a pattern of compensations running from her jaw all the way down to her lower back. Her pain wasn't just in her neck — it was the result of a whole-body imbalance that had been building for years.</p>
+      <h3>The Treatment Plan</h3>
+      <p>Using the St. John Method of Neuromuscular Therapy, we began systematically addressing the trigger points and fascial restrictions driving her symptoms. Within three sessions, Maria reported a 60% reduction in her daily headaches.</p>
+      <h3>The Outcome</h3>
+      <p>After eight sessions, Maria returned to full neck mobility and was headache-free for the first time in years. She now comes in monthly for maintenance and has recommended NMT to three of her colleagues.</p>
+      <p><em>"I wish I had found this sooner. I spent years treating the symptoms when the real problem was something completely different."</em> — Maria</p>
+    `
+  },
+  {
+    id: 2,
+    tag: 'Tips & Education',
+    emoji: '💡',
+    title: '5 Signs Your Body Needs Neuromuscular Therapy',
+    date: 'June 3, 2026',
+    excerpt: 'Most people wait until pain becomes unbearable before seeking help. Here are five early warning signs your nervous system is asking for attention.',
+    content: `
+      <p>Many of our clients tell us the same thing: they wish they had come in sooner. Pain is often the last signal your body sends — by then, compensation patterns have been building for months or even years.</p>
+      <h3>1. Recurring Headaches or Migraines</h3>
+      <p>Tension headaches and migraines are frequently caused by trigger points in the suboccipital muscles, SCM, and upper trapezius — all addressable with neuromuscular therapy.</p>
+      <h3>2. One Shoulder or Hip Sitting Higher Than the Other</h3>
+      <p>Postural asymmetry is a classic sign of muscle imbalances and fascial restrictions that NMT is specifically designed to correct.</p>
+      <h3>3. Pain That Moves Around</h3>
+      <p>Pain that seems to travel or appear in unexpected places (like arm pain from a neck problem) is often referred pain — a hallmark of active trigger points.</p>
+      <h3>4. Stiffness in the Morning</h3>
+      <p>Waking up stiff or sore even without injury is a sign your muscles aren't recovering properly overnight — often due to chronic holding patterns and restricted circulation.</p>
+      <h3>5. You've "Tried Everything"</h3>
+      <p>If you've seen multiple practitioners without lasting relief, neuromuscular therapy's focus on root causes rather than symptoms may be the missing piece.</p>
+    `
+  },
+  {
+    id: 3,
+    tag: 'Wellness Tips',
+    emoji: '🧘',
+    title: 'How to Get the Most Out of Your NMT Session',
+    date: 'May 27, 2026',
+    excerpt: 'A few simple habits before and after your session can dramatically improve your results and help your body hold the changes longer.',
+    content: `
+      <p>Neuromuscular therapy creates real, structural changes in your soft tissue — but what you do before and after your session plays a big role in how well those changes hold.</p>
+      <h3>Before Your Session</h3>
+      <p><strong>Hydrate well.</strong> Well-hydrated tissues respond better to manual therapy and flush metabolic waste more efficiently afterward. Drink plenty of water the day before and morning of your appointment.</p>
+      <p><strong>Avoid heavy exercise.</strong> Coming in with pre-fatigued muscles can limit what we're able to accomplish. Light activity is fine.</p>
+      <p><strong>Write down your symptoms.</strong> Note where you feel pain, when it started, what makes it better or worse, and whether it travels to other areas. The more specific you can be, the more targeted your treatment.</p>
+      <h3>After Your Session</h3>
+      <p><strong>Expect some soreness.</strong> Mild soreness 24–48 hours after NMT is normal and is a sign your tissue is responding. This is not the same as injury pain.</p>
+      <p><strong>Keep moving gently.</strong> Light walking or gentle stretching helps the nervous system integrate the changes made during your session.</p>
+      <p><strong>Do your homework.</strong> If your therapist assigned stretches or self-care exercises, these are not optional — they're a critical part of your treatment plan.</p>
+    `
+  }
+];
+
+function renderBlog(){
+  const grid = document.getElementById('blog-grid');
+  if(!grid) return;
+  grid.innerHTML = blogPosts.map(post => `
+    <div class="blog-card" onclick="openBlogPost(${post.id})">
+      <div class="blog-card-img">${post.emoji}</div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">${post.tag}</div>
+        <div class="blog-card-title">${post.title}</div>
+        <div class="blog-card-excerpt">${post.excerpt}</div>
+        <div class="blog-card-meta">${post.date}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openBlogPost(id){
+  const post = blogPosts.find(p => p.id === id);
+  if(!post) return;
+  document.getElementById('bp-tag').textContent = post.tag;
+  document.getElementById('bp-title').textContent = post.title;
+  document.getElementById('bp-meta').textContent = post.date;
+  document.getElementById('bp-content').innerHTML = post.content;
+  document.getElementById('blog-post-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBlogPost(){
+  document.getElementById('blog-post-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Render blog on page load
+document.addEventListener('DOMContentLoaded', renderBlog);
 </script>
 
 
