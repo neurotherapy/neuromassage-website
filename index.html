@@ -353,6 +353,17 @@ tr:hover td{background:rgba(184,149,90,0.04)}
 .blog-post-content h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:#111;margin:1.5rem 0 0.75rem}
 .blog-write-btn{margin-top:2rem;display:flex;justify-content:flex-end}
 @media(max-width:768px){.blog-grid{grid-template-columns:1fr}}
+
+/* MEET IRMA */
+#therapist{background:#fff;padding:6rem 5%}
+.therapist-grid{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:center;max-width:1000px;margin:0 auto}
+.therapist-photo{width:100%;aspect-ratio:3/4;background:var(--teal-light);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:5rem}
+.therapist-tag{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
+.therapist-name{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:#111;margin-bottom:0.25rem}
+.therapist-cred{font-size:0.85rem;color:#666;margin-bottom:1.5rem;font-style:italic}
+.therapist-bio p{font-size:1rem;color:#333;line-height:1.85;margin-bottom:1.25rem}
+.therapist-quote{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--accent);border-left:3px solid var(--teal);padding-left:1.25rem;margin-top:1.5rem;line-height:1.7}
+@media(max-width:768px){.therapist-grid{grid-template-columns:1fr}.therapist-photo{aspect-ratio:1/1;max-width:220px}}
 </style>
 </head>
 <body>
@@ -412,7 +423,7 @@ tr:hover td{background:rgba(184,149,90,0.04)}
     <li><a href="#services">Services</a></li>
     <li><a href="#join">Join Our Team</a></li>
     <li><a href="#location">Location</a></li>
-    <li><a href="#blog">Blog</a></li><li><a href="#" onclick="switchToPortal()" style="font-size:0.78rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none">Client Portal</a></li><li><a href="#booking" class="nav-cta">Book Now</a></li>
+    <li><a href="#therapist">Meet Irma</a></li><li><a href="#blog">Blog</a></li><li><a href="#" onclick="switchToPortal()" style="font-size:0.78rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none">Client Portal</a></li><li><a href="#booking" class="nav-cta">Book Now</a></li>
   </ul>
 
   <!-- HAMBURGER BUTTON -->
@@ -428,6 +439,7 @@ tr:hover td{background:rgba(184,149,90,0.04)}
   <a href="#services" onclick="closeMobileMenu()">Services</a>
   <a href="#join" onclick="closeMobileMenu()">Join Our Team</a>
   <a href="#location" onclick="closeMobileMenu()">Location</a>
+  <a href="#therapist" onclick="closeMobileMenu()">Meet Irma</a>
   <a href="#blog" onclick="closeMobileMenu()">Blog</a>
   <a href="#" onclick="closeMobileMenu();switchToPortal()">Client Portal</a>
   <a href="#booking" onclick="closeMobileMenu()" class="mob-cta">Book Now</a>
@@ -612,6 +624,25 @@ tr:hover td{background:rgba(184,149,90,0.04)}
   </div>
 </section>
 
+
+
+<!-- MEET IRMA -->
+<section id="therapist">
+  <div class="section-inner">
+    <div class="therapist-grid">
+      <div class="therapist-photo">👩‍⚕️</div>
+      <div class="therapist-bio">
+        <div class="therapist-tag">Your Therapist</div>
+        <h2 class="therapist-name">Irma</h2>
+        <p class="therapist-cred">Certified Neuromuscular Therapist, CNMT — St. John Method</p>
+        <p>Irma founded Neuro Massage Therapy out of a deep passion for helping people who live with the onset and constant pain in their bodies. She believes that everyone deserves to move freely, feel well, and live without the burden of chronic discomfort.</p>
+        <p>Upon graduating as a Licensed Massage Therapist from <strong>Florida Metropolitan University (FMU)</strong>, Irma immediately joined a Neuromuscular Therapy clinic specializing in the St. John Method, where she spent two years refining her skills alongside seasoned practitioners. Over the past 18 years, she has dedicated her career to mastering this precise, results-driven approach to soft tissue therapy.</p>
+        <p>Her approach goes beyond symptom relief — she works to uncover and address the root cause of each client's discomfort, guiding the body back to balance and function.</p>
+        <div class="therapist-quote">"I started this work because I know what it means to suffer and not find answers. I want every client who walks through our door to leave feeling heard, treated, and hopeful."</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- BLOG -->
 <section id="blog">
