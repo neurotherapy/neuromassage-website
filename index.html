@@ -1363,6 +1363,18 @@ function nextStep(step){
 }
 
 async function submitIntake(){
+  // Validate step 4 required fields first
+  const hipaa=document.querySelector('input[name="hipaaConsent"]');
+  const privacy=document.querySelector('input[name="privacyConsent"]');
+  const sig=document.querySelector('input[name="signature"]');
+  const pname=document.querySelector('input[name="printName"]');
+  if(!hipaa||!hipaa.checked){alert('Please check the Patient Privacy Act consent box to continue.');return;}
+  if(!privacy||!privacy.checked){alert('Please check the privacy consent box to continue.');return;}
+  if(!sig||!sig.value.trim()){alert('Please type your signature to continue.');if(sig)sig.focus();return;}
+  if(!pname||!pname.value.trim()){alert('Please print your name to continue.');if(pname)pname.focus();return;}
+  // Auto-fill today's date if empty
+  const signDate=document.getElementById('sign-date');
+  if(signDate&&!signDate.value){signDate.value=new Date().toISOString().split('T')[0];}
   const btn=document.getElementById('submit-btn');
   btn.textContent='Submitting...';btn.disabled=true;
   const form=document.getElementById('intake-form');
@@ -1409,7 +1421,9 @@ async function submitIntake(){
   };
   const{error}=await sb.from('clients').insert([record]);
   if(error){
-    document.getElementById('submit-error').style.display='block';
+    const errBox=document.getElementById('submit-error');
+    errBox.textContent='Error: '+(error.message||'Could not save form. Please check your connection and try again.');
+    errBox.style.display='block';
     btn.textContent='Submit Form ✓';btn.disabled=false;
     console.error(error);return;
   }
