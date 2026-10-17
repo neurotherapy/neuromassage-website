@@ -1249,40 +1249,100 @@ function submitJoin(){
       </div>
     </div>
     <div id="modal-tab-alignment" style="display:none">
-      <p style="color:#333;font-size:0.9rem;margin-bottom:1rem">Mark misalignments, pain areas and trigger points on the body chart.</p>
-      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem">
-        <span style="font-size:0.78rem;color:#4a6666;text-transform:uppercase;letter-spacing:0.08em">Color:</span>
-        <button onclick="setDrawColor('#c0392b')" style="width:28px;height:28px;border-radius:50%;background:#c0392b;border:3px solid #999;cursor:pointer" title="Red - Pain"></button>
-        <button onclick="setDrawColor('#2a7a7a')" style="width:28px;height:28px;border-radius:50%;background:#2a7a7a;border:3px solid transparent;cursor:pointer" title="Teal - Treatment"></button>
-        <button onclick="setDrawColor('#e67e22')" style="width:28px;height:28px;border-radius:50%;background:#e67e22;border:3px solid transparent;cursor:pointer" title="Orange - Misalignment"></button>
-        <button onclick="setDrawColor('#8e44ad')" style="width:28px;height:28px;border-radius:50%;background:#8e44ad;border:3px solid transparent;cursor:pointer" title="Purple - Trigger Point"></button>
-        <button onclick="setDrawColor('#1a1a1a')" style="width:28px;height:28px;border-radius:50%;background:#1a1a1a;border:3px solid transparent;cursor:pointer" title="Black - Notes"></button>
-        <button onclick="setErase(true)" style="width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid #ccc;cursor:pointer;font-size:0.7rem" title="Eraser">✕</button>
-        <button class="btn btn-outline btn-sm" onclick="clearDiagram()">Clear</button>
+      <!-- POSTUROLOGY CHART header -->
+      <div style="text-align:center;margin-bottom:0.75rem">
+        <div style="font-size:1rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#1a2e2e">Posturology Chart</div>
+        <div style="font-size:0.72rem;color:#4a6666;margin-top:0.2rem">Mark misalignments, pain areas and trigger points on each view</div>
+      </div>
+      <!-- Color toolbar -->
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;align-items:center;margin-bottom:0.6rem;padding:0.5rem;background:#f0fafa;border-radius:4px;border:1px solid rgba(74,159,159,0.2)">
+        <span style="font-size:0.72rem;color:#4a6666;text-transform:uppercase;letter-spacing:0.08em;margin-right:0.2rem">Mark:</span>
+        <button onclick="setDrawColor('#c0392b')" style="width:24px;height:24px;border-radius:50%;background:#c0392b;border:3px solid #999;cursor:pointer" title="Red - Pain"></button>
+        <button onclick="setDrawColor('#e67e22')" style="width:24px;height:24px;border-radius:50%;background:#e67e22;border:3px solid transparent;cursor:pointer" title="Orange - Misalignment"></button>
+        <button onclick="setDrawColor('#2a7a7a')" style="width:24px;height:24px;border-radius:50%;background:#2a7a7a;border:3px solid transparent;cursor:pointer" title="Teal - Treatment"></button>
+        <button onclick="setDrawColor('#8e44ad')" style="width:24px;height:24px;border-radius:50%;background:#8e44ad;border:3px solid transparent;cursor:pointer" title="Purple - Trigger Point"></button>
+        <button onclick="setDrawColor('#1a1a1a')" style="width:24px;height:24px;border-radius:50%;background:#1a1a1a;border:3px solid transparent;cursor:pointer" title="Black - Notes"></button>
+        <button onclick="setErase(true)" style="width:24px;height:24px;border-radius:50%;background:#fff;border:2px solid #aaa;cursor:pointer;font-size:0.65rem;line-height:1" title="Eraser">✕</button>
+        <span style="flex:1"></span>
+        <button class="btn btn-outline btn-sm" onclick="clearDiagram()">Clear All</button>
         <button class="btn btn-primary btn-sm" onclick="saveDiagram()">Save Chart</button>
       </div>
-      <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap">
-        <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(192,57,43,0.15);color:#c0392b;border-radius:2px">● Pain</span>
-        <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(74,159,159,0.15);color:#2a7a7a;border-radius:2px">● Treatment</span>
-        <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(230,126,34,0.15);color:#e67e22;border-radius:2px">● Misalignment</span>
-        <span style="font-size:0.72rem;padding:0.2rem 0.5rem;background:rgba(142,68,173,0.15);color:#8e44ad;border-radius:2px">● Trigger Point</span>
+      <!-- Legend -->
+      <div style="display:flex;gap:0.4rem;margin-bottom:0.75rem;flex-wrap:wrap">
+        <span style="font-size:0.68rem;padding:0.15rem 0.4rem;background:rgba(192,57,43,0.12);color:#c0392b;border-radius:2px">● Pain</span>
+        <span style="font-size:0.68rem;padding:0.15rem 0.4rem;background:rgba(230,126,34,0.12);color:#e67e22;border-radius:2px">● Misalignment</span>
+        <span style="font-size:0.68rem;padding:0.15rem 0.4rem;background:rgba(74,159,159,0.12);color:#2a7a7a;border-radius:2px">● Treatment</span>
+        <span style="font-size:0.68rem;padding:0.15rem 0.4rem;background:rgba(142,68,173,0.12);color:#8e44ad;border-radius:2px">● Trigger Point</span>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+      <!-- STANDING section -->
+      <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#2a7a7a;font-weight:600;margin-bottom:0.4rem;border-bottom:1px solid rgba(74,159,159,0.25);padding-bottom:0.2rem">Standing</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.4rem;margin-bottom:0.75rem">
+        <div style="text-align:center">
+          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">R &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L</div>
+          <canvas id="pc-stand-front" width="120" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Front</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">L &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R</div>
+          <canvas id="pc-stand-back" width="120" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Back</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">L side</div>
+          <canvas id="pc-stand-side-l" width="80" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Side L</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">R side</div>
+          <canvas id="pc-stand-side-r" width="80" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Side R</div>
+        </div>
+      </div>
+
+      <!-- SUPINE + SITTING section -->
+      <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#2a7a7a;font-weight:600;margin-bottom:0.4rem;border-bottom:1px solid rgba(74,159,159,0.25);padding-bottom:0.2rem">Supine &amp; Sitting</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.4rem;margin-bottom:0.75rem">
+        <div style="text-align:center">
+          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">R &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L</div>
+          <canvas id="pc-supine-front" width="120" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Supine Front</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">L &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R</div>
+          <canvas id="pc-supine-back" width="120" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Supine Back</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">L &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R</div>
+          <canvas id="pc-sitting" width="120" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Sitting</div>
+        </div>
+      </div>
+
+      <!-- LLLI / Fixations / SPMs / Demands fields -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem">
         <div>
-          <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#4a6666;margin-bottom:0.5rem;text-align:center">Front View</div>
-          <input type="file" id="upload-front" accept="image/*" style="display:none" onchange="uploadChartImage('front')"/>
-          <button class="btn btn-outline btn-sm" style="width:100%;margin-bottom:0.5rem" onclick="document.getElementById('upload-front').click()">📄 Upload Front Chart</button>
-          <canvas id="body-front" width="260" height="480" style="border:1px solid rgba(74,159,159,0.3);border-radius:4px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <label style="font-size:0.7rem;color:#4a6666;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:0.2rem">LLLI?</label>
+          <input type="text" id="pc-llli" placeholder="e.g. Left 4mm" style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.3);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.85rem;padding:0.4rem 0.5rem;width:100%;outline:none"/>
         </div>
         <div>
-          <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#4a6666;margin-bottom:0.5rem;text-align:center">Back View</div>
-          <input type="file" id="upload-back" accept="image/*" style="display:none" onchange="uploadChartImage('back')"/>
-          <button class="btn btn-outline btn-sm" style="width:100%;margin-bottom:0.5rem" onclick="document.getElementById('upload-back').click()">📄 Upload Back Chart</button>
-          <canvas id="body-back" width="260" height="480" style="border:1px solid rgba(74,159,159,0.3);border-radius:4px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
+          <label style="font-size:0.7rem;color:#4a6666;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:0.2rem">Fixations?</label>
+          <input type="text" id="pc-fixations" placeholder="e.g. C2, L4-5" style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.3);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.85rem;padding:0.4rem 0.5rem;width:100%;outline:none"/>
+        </div>
+        <div>
+          <label style="font-size:0.7rem;color:#4a6666;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:0.2rem">SPM's</label>
+          <input type="text" id="pc-spms" placeholder="e.g. Piriformis R, SCM L" style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.3);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.85rem;padding:0.4rem 0.5rem;width:100%;outline:none"/>
+        </div>
+        <div>
+          <label style="font-size:0.7rem;color:#4a6666;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:0.2rem">Demands?</label>
+          <input type="text" id="pc-demands" placeholder="e.g. Occlusal, Orthotics" style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.3);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.85rem;padding:0.4rem 0.5rem;width:100%;outline:none"/>
         </div>
       </div>
-      <div style="margin-top:0.75rem">
-        <textarea id="diagram-notes" placeholder="Alignment notes — describe misalignments, directions, compensations observed..." style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.3);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem;width:100%;outline:none;resize:vertical;min-height:70px"></textarea>
+      <!-- General notes -->
+      <div>
+        <label style="font-size:0.7rem;color:#4a6666;text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:0.2rem">Additional Notes</label>
+        <textarea id="diagram-notes" placeholder="Observations, compensations, treatment notes..." style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.3);border-radius:2px;color:#111;font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:0.65rem;width:100%;outline:none;resize:vertical;min-height:60px"></textarea>
       </div>
       <div id="saved-diagrams-list" style="margin-top:1rem"></div>
     </div>
@@ -1377,6 +1437,7 @@ async function submitIntake(){
   if(signDate&&!signDate.value){signDate.value=new Date().toISOString().split('T')[0];}
   const btn=document.getElementById('submit-btn');
   btn.textContent='Submitting...';btn.disabled=true;
+  try{
   const form=document.getElementById('intake-form');
   const data=new FormData(form);
   const obj={};
@@ -1422,14 +1483,27 @@ async function submitIntake(){
   const{error}=await sb.from('clients').insert([record]);
   if(error){
     const errBox=document.getElementById('submit-error');
-    errBox.textContent='Error: '+(error.message||'Could not save form. Please check your connection and try again.');
+    let msg='Submission error: ';
+    if(error.message) msg+=error.message;
+    if(error.details) msg+=' | '+error.details;
+    if(error.hint) msg+=' | Hint: '+error.hint;
+    if(error.code) msg+=' (code: '+error.code+')';
+    if(!error.message&&!error.details) msg+='Could not connect to server. Please check your internet connection.';
+    errBox.textContent=msg;
     errBox.style.display='block';
     btn.textContent='Submit Form ✓';btn.disabled=false;
-    console.error(error);return;
+    console.error('Supabase error:',JSON.stringify(error));return;
   }
   document.getElementById('form-screen').style.display='none';
   document.getElementById('success-screen').style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){
+    const errBox=document.getElementById('submit-error');
+    errBox.textContent='Unexpected error: '+e.message;
+    errBox.style.display='block';
+    btn.textContent='Submit Form ✓';btn.disabled=false;
+    console.error('submitIntake exception:',e);
+  }
 }
 
 // ===== LOGIN =====
@@ -1864,94 +1938,200 @@ function setDrawColor(color) {
 }
 function setErase(val) { isErasing = val; }
 
-function drawBodyOutline(canvas) {
-  if(canvas.dataset.customImage === 'true') return;
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width, h = canvas.height;
-  ctx.clearRect(0,0,w,h);
-  ctx.strokeStyle = '#b2e0e0';
-  ctx.lineWidth = 1.5;
-  ctx.fillStyle = '#f7fbfb';
-  ctx.beginPath(); ctx.arc(w/2, 50, 32, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(w/2-11,80); ctx.lineTo(w/2-14,105); ctx.lineTo(w/2+14,105); ctx.lineTo(w/2+11,80); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(w/2-50,105); ctx.lineTo(w/2-55,250); ctx.lineTo(w/2+55,250); ctx.lineTo(w/2+50,105); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(w/2-50,110); ctx.lineTo(w/2-72,220); ctx.lineTo(w/2-58,220); ctx.lineTo(w/2-38,115); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(w/2+50,110); ctx.lineTo(w/2+72,220); ctx.lineTo(w/2+58,220); ctx.lineTo(w/2+38,115); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(w/2-40,250); ctx.lineTo(w/2-45,400); ctx.lineTo(w/2-22,400); ctx.lineTo(w/2-9,250); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(w/2+40,250); ctx.lineTo(w/2+45,400); ctx.lineTo(w/2+22,400); ctx.lineTo(w/2+9,250); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.ellipse(w/2-33,410,16,9,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.ellipse(w/2+33,410,16,9,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+// ===== POSTUROLOGY CHART DRAWING =====
+const PC_CANVASES = ['pc-stand-front','pc-stand-back','pc-stand-side-l','pc-stand-side-r','pc-supine-front','pc-supine-back','pc-sitting'];
+
+function drawSkeletonFront(ctx, w, h) {
+  const cx = w/2, S = h/240;
+  ctx.strokeStyle = '#555'; ctx.lineWidth = 1.2;
+  // head
+  ctx.beginPath(); ctx.ellipse(cx, 12*S, 9*S, 11*S, 0, 0, Math.PI*2); ctx.fillStyle='#f0ece8'; ctx.fill(); ctx.stroke();
+  // neck
+  ctx.beginPath(); ctx.moveTo(cx-4*S,22*S); ctx.lineTo(cx-4*S,30*S); ctx.lineTo(cx+4*S,30*S); ctx.lineTo(cx+4*S,22*S); ctx.stroke();
+  // shoulders
+  ctx.beginPath(); ctx.moveTo(cx-4*S,30*S); ctx.lineTo(cx-22*S,36*S); ctx.moveTo(cx+4*S,30*S); ctx.lineTo(cx+22*S,36*S); ctx.stroke();
+  // clavicles
+  ctx.beginPath(); ctx.moveTo(cx,30*S); ctx.lineTo(cx-18*S,34*S); ctx.moveTo(cx,30*S); ctx.lineTo(cx+18*S,34*S); ctx.stroke();
+  // spine
+  ctx.beginPath(); ctx.moveTo(cx,30*S); ctx.lineTo(cx,115*S); ctx.stroke();
+  // spine segments
+  for(let i=0;i<8;i++){ const y=(32+i*10)*S; ctx.beginPath(); ctx.rect(cx-3*S,y,6*S,8*S); ctx.fillStyle='#ddd8d0'; ctx.fill(); ctx.stroke(); }
+  // ribcage
+  ctx.beginPath(); ctx.ellipse(cx, 68*S, 18*S, 28*S, 0, 0, Math.PI*2); ctx.fillStyle='rgba(200,190,180,0.25)'; ctx.fill(); ctx.stroke();
+  for(let i=0;i<5;i++){ const y=(42+i*8)*S; ctx.beginPath(); ctx.moveTo(cx-3*S,y); ctx.bezierCurveTo(cx-22*S,y+2*S,cx-24*S,y+6*S,cx-20*S,y+10*S); ctx.moveTo(cx+3*S,y); ctx.bezierCurveTo(cx+22*S,y+2*S,cx+24*S,y+6*S,cx+20*S,y+10*S); ctx.stroke(); }
+  // pelvis
+  ctx.beginPath(); ctx.ellipse(cx, 118*S, 20*S, 12*S, 0, 0, Math.PI*2); ctx.fillStyle='rgba(200,190,180,0.3)'; ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,115*S); ctx.lineTo(cx,130*S); ctx.stroke();
+  // upper arms
+  ctx.beginPath(); ctx.moveTo(cx-22*S,36*S); ctx.lineTo(cx-26*S,70*S); ctx.moveTo(cx+22*S,36*S); ctx.lineTo(cx+26*S,70*S); ctx.stroke();
+  // lower arms
+  ctx.beginPath(); ctx.moveTo(cx-26*S,70*S); ctx.lineTo(cx-24*S,110*S); ctx.moveTo(cx+26*S,70*S); ctx.lineTo(cx+24*S,110*S); ctx.stroke();
+  // hands
+  ctx.beginPath(); ctx.ellipse(cx-24*S,115*S,4*S,6*S,0,0,Math.PI*2); ctx.ellipse(cx+24*S,115*S,4*S,6*S,0,0,Math.PI*2); ctx.fillStyle='#f0ece8'; ctx.fill(); ctx.stroke();
+  // femurs
+  ctx.beginPath(); ctx.moveTo(cx-12*S,128*S); ctx.lineTo(cx-14*S,180*S); ctx.moveTo(cx+12*S,128*S); ctx.lineTo(cx+14*S,180*S); ctx.stroke();
+  // knees
+  ctx.beginPath(); ctx.ellipse(cx-14*S,183*S,6*S,4*S,0,0,Math.PI*2); ctx.ellipse(cx+14*S,183*S,6*S,4*S,0,0,Math.PI*2); ctx.fillStyle='rgba(200,190,180,0.4)'; ctx.fill(); ctx.stroke();
+  // lower legs
+  ctx.beginPath(); ctx.moveTo(cx-14*S,187*S); ctx.lineTo(cx-12*S,228*S); ctx.moveTo(cx+14*S,187*S); ctx.lineTo(cx+12*S,228*S); ctx.stroke();
+  // feet
+  ctx.beginPath(); ctx.moveTo(cx-16*S,228*S); ctx.lineTo(cx-6*S,228*S); ctx.bezierCurveTo(cx-2*S,228*S,cx,230*S,cx,234*S); ctx.lineTo(cx-20*S,234*S); ctx.closePath(); ctx.fillStyle='#e8e2dc'; ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx+6*S,228*S); ctx.lineTo(cx+16*S,228*S); ctx.bezierCurveTo(cx+20*S,228*S,cx+22*S,230*S,cx+22*S,234*S); ctx.lineTo(cx+2*S,234*S); ctx.closePath(); ctx.fill(); ctx.stroke();
+  // alignment lines
+  ctx.strokeStyle='rgba(0,100,100,0.35)'; ctx.lineWidth=0.7; ctx.setLineDash([3,3]);
+  const lines_y = [11*S,36*S,68*S,118*S,183*S];
+  lines_y.forEach(y=>{ ctx.beginPath(); ctx.moveTo(2,y); ctx.lineTo(w-2,y); ctx.stroke(); });
+  // vertical plumb line
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+  ctx.setLineDash([]);
 }
 
-function uploadChartImage(view){
-  const fileInput = document.getElementById('upload-'+view);
-  const file = fileInput.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e){
-    const canvas = document.getElementById('body-'+view);
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    img.onload = function(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      const scale = Math.min(canvas.width/img.width, canvas.height/img.height);
-      const w = img.width*scale, h = img.height*scale;
-      const x = (canvas.width-w)/2, y = (canvas.height-h)/2;
-      ctx.drawImage(img, x, y, w, h);
-      canvas.dataset.customImage = 'true';
-      canvas.dataset.imageDataUrl = e.target.result;
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-  fileInput.value = '';
+function drawSkeletonBack(ctx, w, h) {
+  const cx = w/2, S = h/240;
+  ctx.strokeStyle = '#555'; ctx.lineWidth = 1.2;
+  // head
+  ctx.beginPath(); ctx.ellipse(cx, 12*S, 9*S, 11*S, 0, 0, Math.PI*2); ctx.fillStyle='#f0ece8'; ctx.fill(); ctx.stroke();
+  // neck
+  ctx.beginPath(); ctx.moveTo(cx-4*S,22*S); ctx.lineTo(cx-4*S,30*S); ctx.lineTo(cx+4*S,30*S); ctx.lineTo(cx+4*S,22*S); ctx.stroke();
+  // shoulders
+  ctx.beginPath(); ctx.moveTo(cx-4*S,30*S); ctx.lineTo(cx-22*S,36*S); ctx.moveTo(cx+4*S,30*S); ctx.lineTo(cx+22*S,36*S); ctx.stroke();
+  // spine with vertebrae
+  for(let i=0;i<10;i++){ const y=(30+i*8)*S; ctx.beginPath(); ctx.rect(cx-3*S,y,6*S,7*S); ctx.fillStyle='#ddd8d0'; ctx.fill(); ctx.stroke(); }
+  // shoulder blades
+  ctx.beginPath(); ctx.moveTo(cx-8*S,38*S); ctx.lineTo(cx-20*S,42*S); ctx.lineTo(cx-22*S,60*S); ctx.lineTo(cx-12*S,64*S); ctx.closePath(); ctx.fillStyle='rgba(180,170,160,0.3)'; ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx+8*S,38*S); ctx.lineTo(cx+20*S,42*S); ctx.lineTo(cx+22*S,60*S); ctx.lineTo(cx+12*S,64*S); ctx.closePath(); ctx.fill(); ctx.stroke();
+  // ribcage back
+  for(let i=0;i<5;i++){ const y=(38+i*8)*S; ctx.beginPath(); ctx.moveTo(cx-4*S,y); ctx.bezierCurveTo(cx-22*S,y+1*S,cx-24*S,y+5*S,cx-20*S,y+9*S); ctx.moveTo(cx+4*S,y); ctx.bezierCurveTo(cx+22*S,y+1*S,ctx+24*S,y+5*S,cx+20*S,y+9*S); ctx.stroke(); }
+  // pelvis
+  ctx.beginPath(); ctx.ellipse(cx, 118*S, 20*S, 12*S, 0, 0, Math.PI*2); ctx.fillStyle='rgba(200,190,180,0.3)'; ctx.fill(); ctx.stroke();
+  // sacrum
+  ctx.beginPath(); ctx.moveTo(cx-5*S,110*S); ctx.lineTo(cx-7*S,128*S); ctx.lineTo(cx+7*S,128*S); ctx.lineTo(cx+5*S,110*S); ctx.closePath(); ctx.fillStyle='#ddd8d0'; ctx.fill(); ctx.stroke();
+  // upper arms
+  ctx.beginPath(); ctx.moveTo(cx-22*S,36*S); ctx.lineTo(cx-26*S,70*S); ctx.moveTo(cx+22*S,36*S); ctx.lineTo(cx+26*S,70*S); ctx.stroke();
+  // lower arms
+  ctx.beginPath(); ctx.moveTo(cx-26*S,70*S); ctx.lineTo(cx-24*S,110*S); ctx.moveTo(cx+26*S,70*S); ctx.lineTo(cx+24*S,110*S); ctx.stroke();
+  // hands
+  ctx.beginPath(); ctx.ellipse(cx-24*S,115*S,4*S,6*S,0,0,Math.PI*2); ctx.ellipse(cx+24*S,115*S,4*S,6*S,0,0,Math.PI*2); ctx.fillStyle='#f0ece8'; ctx.fill(); ctx.stroke();
+  // femurs
+  ctx.beginPath(); ctx.moveTo(cx-12*S,128*S); ctx.lineTo(cx-14*S,180*S); ctx.moveTo(cx+12*S,128*S); ctx.lineTo(cx+14*S,180*S); ctx.stroke();
+  // knees
+  ctx.beginPath(); ctx.ellipse(cx-14*S,183*S,6*S,4*S,0,0,Math.PI*2); ctx.ellipse(cx+14*S,183*S,6*S,4*S,0,0,Math.PI*2); ctx.fillStyle='rgba(200,190,180,0.4)'; ctx.fill(); ctx.stroke();
+  // lower legs
+  ctx.beginPath(); ctx.moveTo(cx-14*S,187*S); ctx.lineTo(cx-12*S,228*S); ctx.moveTo(cx+14*S,187*S); ctx.lineTo(cx+12*S,228*S); ctx.stroke();
+  // feet back
+  ctx.beginPath(); ctx.ellipse(cx-10*S,232*S,8*S,4*S,0,0,Math.PI*2); ctx.ellipse(cx+10*S,232*S,8*S,4*S,0,0,Math.PI*2); ctx.fillStyle='#e8e2dc'; ctx.fill(); ctx.stroke();
+  // alignment lines
+  ctx.strokeStyle='rgba(0,100,100,0.35)'; ctx.lineWidth=0.7; ctx.setLineDash([3,3]);
+  const lines_y = [11*S,36*S,68*S,118*S,183*S];
+  lines_y.forEach(y=>{ ctx.beginPath(); ctx.moveTo(2,y); ctx.lineTo(w-2,y); ctx.stroke(); });
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function drawSkeletonSide(ctx, w, h) {
+  const cx = w/2, S = h/240;
+  ctx.strokeStyle = '#555'; ctx.lineWidth = 1.2;
+  // head
+  ctx.beginPath(); ctx.ellipse(cx-2*S, 12*S, 8*S, 11*S, 0, 0, Math.PI*2); ctx.fillStyle='#f0ece8'; ctx.fill(); ctx.stroke();
+  // spine with curves (cervical, thoracic, lumbar, sacral)
+  ctx.beginPath(); ctx.moveTo(cx,23*S); ctx.bezierCurveTo(cx+4*S,40*S,cx-6*S,60*S,cx,85*S); ctx.bezierCurveTo(cx+8*S,105*S,cx+2*S,115*S,cx-2*S,128*S); ctx.stroke();
+  // vertebrae dots along spine
+  for(let i=0;i<9;i++){ const t=i/8; const y=(28+i*11)*S; const x=cx+(i<3?t*4:(i<6?-t*4:t*2))*S; ctx.beginPath(); ctx.ellipse(x,y,3*S,2*S,0,0,Math.PI*2); ctx.fillStyle='#ddd8d0'; ctx.fill(); ctx.stroke(); }
+  // ribcage side
+  ctx.beginPath(); ctx.ellipse(cx-3*S, 65*S, 10*S, 26*S, -0.2, 0, Math.PI*2); ctx.fillStyle='rgba(200,190,180,0.2)'; ctx.fill(); ctx.stroke();
+  // pelvis side
+  ctx.beginPath(); ctx.moveTo(cx-2*S,115*S); ctx.bezierCurveTo(cx+12*S,118*S,cx+14*S,126*S,cx+10*S,134*S); ctx.bezierCurveTo(cx+6*S,138*S,cx-2*S,136*S,cx-4*S,130*S); ctx.closePath(); ctx.fillStyle='rgba(200,190,180,0.3)'; ctx.fill(); ctx.stroke();
+  // shoulder
+  ctx.beginPath(); ctx.ellipse(cx+4*S,34*S,7*S,5*S,0,0,Math.PI*2); ctx.fillStyle='rgba(180,170,160,0.4)'; ctx.fill(); ctx.stroke();
+  // upper arm
+  ctx.beginPath(); ctx.moveTo(cx+4*S,39*S); ctx.lineTo(cx+8*S,70*S); ctx.stroke();
+  // lower arm
+  ctx.beginPath(); ctx.moveTo(cx+8*S,70*S); ctx.lineTo(cx+6*S,106*S); ctx.stroke();
+  // femur
+  ctx.beginPath(); ctx.moveTo(cx+6*S,132*S); ctx.lineTo(cx+4*S,182*S); ctx.stroke();
+  // knee
+  ctx.beginPath(); ctx.ellipse(cx+4*S,184*S,5*S,4*S,0,0,Math.PI*2); ctx.fillStyle='rgba(200,190,180,0.4)'; ctx.fill(); ctx.stroke();
+  // lower leg
+  ctx.beginPath(); ctx.moveTo(cx+2*S,188*S); ctx.lineTo(cx+2*S,228*S); ctx.stroke();
+  // foot
+  ctx.beginPath(); ctx.moveTo(cx-4*S,228*S); ctx.lineTo(cx+14*S,228*S); ctx.lineTo(cx+14*S,234*S); ctx.lineTo(cx-4*S,234*S); ctx.closePath(); ctx.fillStyle='#e8e2dc'; ctx.fill(); ctx.stroke();
+  // plumb line
+  ctx.strokeStyle='rgba(0,100,100,0.35)'; ctx.lineWidth=0.7; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+  // horizontal refs
+  [12*S,34*S,65*S,118*S,184*S].forEach(y=>{ ctx.beginPath(); ctx.moveTo(2,y); ctx.lineTo(w-2,y); ctx.stroke(); });
+  ctx.setLineDash([]);
+}
+
+function drawPosturologyCanvas(canvas) {
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  const id = canvas.id;
+  if(id==='pc-stand-front'||id==='pc-supine-front') drawSkeletonFront(ctx, canvas.width, canvas.height);
+  else if(id==='pc-stand-back'||id==='pc-supine-back'||id==='pc-sitting') drawSkeletonBack(ctx, canvas.width, canvas.height);
+  else if(id==='pc-stand-side-l'||id==='pc-stand-side-r') drawSkeletonSide(ctx, canvas.width, canvas.height);
+}
+
+function drawBodyOutline(canvas) {
+  // Legacy wrapper — uses posturology system
+  if(!canvas) return;
+  drawPosturologyCanvas(canvas);
 }
 
 function clearDiagram() {
-  ['body-front','body-back'].forEach(id => {
+  PC_CANVASES.forEach(id => {
     const canvas = document.getElementById(id);
-    if(canvas) { canvas.dataset.customImage = 'false'; drawBodyOutline(canvas); }
+    if(canvas) drawPosturologyCanvas(canvas);
   });
 }
 
 function initDiagram() {
-  ['body-front','body-back'].forEach(id => {
+  PC_CANVASES.forEach(id => {
     const canvas = document.getElementById(id);
-    if(!canvas || canvas.dataset.initialized) { if(canvas) drawBodyOutline(canvas); return; }
-    canvas.dataset.initialized = 'true';
-    drawBodyOutline(canvas);
-    const getPos = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const src = e.touches ? e.touches[0] : e;
-      return {x:(src.clientX-rect.left)*scaleX, y:(src.clientY-rect.top)*scaleY};
-    };
-    const startDraw = (e) => { e.preventDefault(); isDrawing=true; activeCanvas=canvas; const pos=getPos(e); const ctx=canvas.getContext('2d'); ctx.beginPath(); ctx.moveTo(pos.x,pos.y); };
-    const draw = (e) => { if(!isDrawing||activeCanvas!==canvas) return; e.preventDefault(); const pos=getPos(e); const ctx=canvas.getContext('2d'); ctx.lineWidth=isErasing?20:3; ctx.lineCap='round'; ctx.strokeStyle=isErasing?'#ffffff':drawColor; ctx.lineTo(pos.x,pos.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pos.x,pos.y); };
-    const stopDraw = () => { isDrawing=false; activeCanvas=null; };
-    canvas.addEventListener('mousedown',startDraw); canvas.addEventListener('mousemove',draw); canvas.addEventListener('mouseup',stopDraw); canvas.addEventListener('mouseleave',stopDraw);
-    canvas.addEventListener('touchstart',startDraw,{passive:false}); canvas.addEventListener('touchmove',draw,{passive:false}); canvas.addEventListener('touchend',stopDraw);
+    if(!canvas) return;
+    if(!canvas.dataset.initialized) {
+      canvas.dataset.initialized = 'true';
+      drawPosturologyCanvas(canvas);
+      const getPos = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const src = e.touches ? e.touches[0] : e;
+        return {x:(src.clientX-rect.left)*scaleX, y:(src.clientY-rect.top)*scaleY};
+      };
+      const startDraw = (e) => { e.preventDefault(); isDrawing=true; activeCanvas=canvas; const pos=getPos(e); const ctx=canvas.getContext('2d'); ctx.beginPath(); ctx.moveTo(pos.x,pos.y); };
+      const draw = (e) => { if(!isDrawing||activeCanvas!==canvas) return; e.preventDefault(); const pos=getPos(e); const ctx=canvas.getContext('2d'); ctx.lineWidth=isErasing?16:3; ctx.lineCap='round'; ctx.strokeStyle=isErasing?'#ffffff':drawColor; ctx.lineTo(pos.x,pos.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pos.x,pos.y); };
+      const stopDraw = () => { isDrawing=false; activeCanvas=null; };
+      canvas.addEventListener('mousedown',startDraw); canvas.addEventListener('mousemove',draw); canvas.addEventListener('mouseup',stopDraw); canvas.addEventListener('mouseleave',stopDraw);
+      canvas.addEventListener('touchstart',startDraw,{passive:false}); canvas.addEventListener('touchmove',draw,{passive:false}); canvas.addEventListener('touchend',stopDraw);
+    } else {
+      drawPosturologyCanvas(canvas);
+    }
   });
 }
 
 async function saveDiagram() {
   const c = allClients.find(x => x.id === activeClientId);
   if(!c) return;
-  const frontCanvas = document.getElementById('body-front');
-  const backCanvas = document.getElementById('body-back');
+  const canvasData = {};
+  PC_CANVASES.forEach(id => { const cv = document.getElementById(id); if(cv) canvasData[id] = cv.toDataURL('image/png'); });
   const notes = document.getElementById('diagram-notes').value.trim();
+  const llli = document.getElementById('pc-llli').value.trim();
+  const fixations = document.getElementById('pc-fixations').value.trim();
+  const spms = document.getElementById('pc-spms').value.trim();
+  const demands = document.getElementById('pc-demands').value.trim();
   const diagrams = c.diagrams || [];
-  diagrams.push({ date: new Date().toISOString(), front: frontCanvas.toDataURL('image/png'), back: backCanvas.toDataURL('image/png'), notes });
+  diagrams.push({ date: new Date().toISOString(), canvases: canvasData, notes, llli, fixations, spms, demands });
   const {error} = await sb.from('clients').update({diagrams}).eq('id', activeClientId);
   if(!error) {
     c.diagrams = diagrams;
     document.getElementById('diagram-notes').value = '';
+    ['pc-llli','pc-fixations','pc-spms','pc-demands'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
     renderSavedDiagrams(c);
     clearDiagram();
-    alert('Body alignment chart saved!');
+    alert('Posturology chart saved!');
   } else { alert('Error saving chart. Make sure the diagrams column exists in Supabase.'); console.error(error); }
 }
 
@@ -1960,16 +2140,18 @@ function renderSavedDiagrams(c) {
   if(!el) return;
   const diagrams = c.diagrams || [];
   if(!diagrams.length) { el.innerHTML = '<p style="color:#4a6666;font-size:0.88rem;margin-top:0.5rem">No saved charts yet.</p>'; return; }
+  const viewLabels = {'pc-stand-front':'Stand Front','pc-stand-back':'Stand Back','pc-stand-side-l':'Side L','pc-stand-side-r':'Side R','pc-supine-front':'Supine Fr','pc-supine-back':'Supine Bk','pc-sitting':'Sitting'};
   el.innerHTML = '<div style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2a7a7a;margin-bottom:0.75rem;font-weight:500">Saved Charts</div>' +
-    [...diagrams].reverse().map(d => `
-    <div style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.2);border-radius:4px;padding:1rem;margin-bottom:0.75rem">
-      <div style="font-size:0.72rem;color:#2a7a7a;margin-bottom:0.75rem">${new Date(d.date).toLocaleString()}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
-        <div><div style="font-size:0.7rem;color:#4a6666;margin-bottom:0.25rem">Front</div><img src="${d.front}" style="width:100%;border-radius:2px;border:1px solid rgba(74,159,159,0.2)"/></div>
-        <div><div style="font-size:0.7rem;color:#4a6666;margin-bottom:0.25rem">Back</div><img src="${d.back}" style="width:100%;border-radius:2px;border:1px solid rgba(74,159,159,0.2)"/></div>
-      </div>
-      ${d.notes ? `<p style="font-size:0.85rem;color:#333;margin-top:0.5rem">${d.notes}</p>` : ''}
-    </div>`).join('');
+    [...diagrams].reverse().map(d => {
+      const imgs = d.canvases ? Object.entries(d.canvases).map(([id,src])=>`<div style="text-align:center"><div style="font-size:0.6rem;color:#4a6666;margin-bottom:0.15rem">${viewLabels[id]||id}</div><img src="${src}" style="width:100%;border-radius:2px;border:1px solid rgba(74,159,159,0.2)"/></div>`).join('') : (d.front ? `<div><img src="${d.front}" style="width:100%"/></div><div><img src="${d.back}" style="width:100%"/></div>` : '');
+      const meta = [d.llli&&`LLLI: ${d.llli}`, d.fixations&&`Fix: ${d.fixations}`, d.spms&&`SPMs: ${d.spms}`, d.demands&&`Demands: ${d.demands}`].filter(Boolean).join(' · ');
+      return `<div style="background:#e8f5f5;border:1px solid rgba(74,159,159,0.2);border-radius:4px;padding:0.75rem;margin-bottom:0.75rem">
+        <div style="font-size:0.72rem;color:#2a7a7a;margin-bottom:0.5rem">${new Date(d.date).toLocaleString()}</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.3rem;margin-bottom:0.4rem">${imgs}</div>
+        ${meta ? `<p style="font-size:0.75rem;color:#2a7a7a;margin-bottom:0.25rem">${meta}</p>` : ''}
+        ${d.notes ? `<p style="font-size:0.8rem;color:#333">${d.notes}</p>` : ''}
+      </div>`;
+    }).join('');
 }
 
 // ===== BLOG =====
