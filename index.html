@@ -1282,25 +1282,7 @@ function submitJoin(){
         <canvas id="pc-stand-chart" style="position:absolute;top:0;left:0;width:100%;height:100%;touch-action:none;cursor:crosshair"></canvas>
       </div>
 
-      <!-- SUPINE + SITTING section -->
-      <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#2a7a7a;font-weight:600;margin-bottom:0.4rem;border-bottom:1px solid rgba(74,159,159,0.25);padding-bottom:0.2rem">Supine &amp; Sitting</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.4rem;margin-bottom:0.75rem">
-        <div style="text-align:center">
-          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">R &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L</div>
-          <canvas id="pc-supine-front" width="120" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
-          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Supine Front</div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">L &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R</div>
-          <canvas id="pc-supine-back" width="120" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
-          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Supine Back</div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:0.64rem;color:#4a6666;margin-bottom:0.2rem">L &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R</div>
-          <canvas id="pc-sitting" width="120" height="240" style="border:1px solid rgba(74,159,159,0.3);border-radius:3px;cursor:crosshair;touch-action:none;background:#fff;width:100%"></canvas>
-          <div style="font-size:0.62rem;color:#666;margin-top:0.15rem">Sitting</div>
-        </div>
-      </div>
+
 
       <!-- LLLI / Fixations / SPMs / Demands fields -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem">
@@ -1921,7 +1903,7 @@ function setDrawColor(color) {
 function setErase(val) { isErasing = val; }
 
 // ===== POSTUROLOGY CHART DRAWING =====
-const PC_CANVASES = ['pc-stand-chart','pc-supine-front','pc-supine-back','pc-sitting'];
+const PC_CANVASES = ['pc-stand-chart'];
 
 function drawSkeletonFront(ctx, w, h) {
   const cx = w/2, S = h/240;
@@ -2056,8 +2038,7 @@ function drawPosturologyCanvas(canvas) {
   }
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle = '#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
-  if(id==='pc-supine-front') drawSkeletonFront(ctx, canvas.width, canvas.height);
-  else if(id==='pc-supine-back'||id==='pc-sitting') drawSkeletonBack(ctx, canvas.width, canvas.height);
+
 }
 
 function drawBodyOutline(canvas) {
@@ -2149,7 +2130,7 @@ function renderSavedDiagrams(c) {
   if(!el) return;
   const diagrams = c.diagrams || [];
   if(!diagrams.length) { el.innerHTML = '<p style="color:#4a6666;font-size:0.88rem;margin-top:0.5rem">No saved charts yet.</p>'; return; }
-  const viewLabels = {'pc-stand-chart':'Standing','pc-supine-front':'Supine Fr','pc-supine-back':'Supine Bk','pc-sitting':'Sitting'};
+  const viewLabels = {'pc-stand-chart':'Standing'};
   el.innerHTML = '<div style="font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#2a7a7a;margin-bottom:0.75rem;font-weight:500">Saved Charts</div>' +
     [...diagrams].reverse().map(d => {
       const imgs = d.canvases ? Object.entries(d.canvases).map(([id,src])=>`<div style="text-align:center"><div style="font-size:0.6rem;color:#4a6666;margin-bottom:0.15rem">${viewLabels[id]||id}</div><img src="${src}" style="width:100%;border-radius:2px;border:1px solid rgba(74,159,159,0.2)"/></div>`).join('') : (d.front ? `<div><img src="${d.front}" style="width:100%"/></div><div><img src="${d.back}" style="width:100%"/></div>` : '');
